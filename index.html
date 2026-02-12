@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Yorkshire Modular Society</title>
-<meta name="description" content="Born in West Yorkshire mist. Sound that unfolds slowly, if you let it." />
+<meta name="description" content="Independent ambient and modular work from West Yorkshire." />
 
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -14,8 +14,7 @@
   --bg1:#060811;
   --fg:#e6ebff;
   --muted:#8f98ad;
-  --stroke:rgba(255,255,255,.18);
-  --max:780px;
+  --max:680px;
 }
 
 *{box-sizing:border-box}
@@ -33,7 +32,7 @@ body{
   overflow:hidden;
 }
 
-/* mist */
+/* atmosphere */
 .mist,
 .mist2,
 .grain{
@@ -92,41 +91,17 @@ body{
   to{opacity:1; transform:translateY(0)}
 }
 
-h1{
-  margin:0;
-  font-family:'Space Grotesk', sans-serif;
-  font-weight:700;
-  font-size:clamp(44px, 6vw, 78px);
-  line-height:1.02;
-  letter-spacing:-1.2px;
-
-  background: linear-gradient(90deg, #8aa0ff, #b58cff, #9aa6ff, #7fb9ff);
-  background-size:300% 100%;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-
-  animation:titleFlow 18s ease-in-out infinite;
-}
-
-@keyframes titleFlow{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
 .links{
-  margin-top:80px;
   display:flex;
   flex-direction:column;
-  gap:26px;
-  max-width:420px;
+  gap:28px;
+  font-size:18px;
+  letter-spacing:.4px;
 }
 
 a{
   color:var(--fg);
   text-decoration:none;
-  font-size:18px;
-  letter-spacing:.4px;
   position:relative;
   width:fit-content;
 }
@@ -148,7 +123,7 @@ a:hover::after{
 }
 
 .small{
-  margin-top:70px;
+  margin-top:80px;
   font-size:12px;
   color:var(--muted);
 }
@@ -161,16 +136,12 @@ a:hover::after{
 <div class="grain"></div>
 
 <main class="wrap">
-  <h1>
-    Yorkshire<br>
-    Modular Society
-  </h1>
-
   <nav class="links">
-    <a href="https://yorkshiremodularsociety.bandcamp.com" target="_blank">Bandcamp</a>
-    <a href="https://www.instagram.com/yorkshiremodularsociety/" target="_blank">Instagram</a>
-    <a href="https://bsky.app/profile/yorkshiremodular.bsky.social" target="_blank">Bluesky</a>
+    <a href="https://yorkshiremodularsociety.bandcamp.com" target="_blank" rel="noopener">Bandcamp</a>
+    <a href="https://www.instagram.com/yorkshiremodularsociety/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://bsky.app/profile/yorkshiremodular.bsky.social" target="_blank" rel="noopener">Bluesky</a>
     <a href="mailto:patch@yorkshiremodularsociety.com">patch@yorkshiremodularsociety.com</a>
+    <a href="/releases.html">Selected Releases</a>
   </nav>
 
   <div class="small">yorkshiremodularsociety.com</div>
