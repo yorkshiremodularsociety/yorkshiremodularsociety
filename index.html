@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yorkshire Modular Society</title>
+<meta name="description" content="Born in West Yorkshire mist. Sound that unfolds slowly, if you let it." />
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg0:#04050a;
+  --bg1:#060811;
+  --fg:#e6ebff;
+  --muted:#8f98ad;
+  --stroke:rgba(255,255,255,.18);
+  --max:780px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:90px 28px;
+  font-family:'Inter', system-ui, sans-serif;
+  color:var(--fg);
+  background:linear-gradient(180deg,var(--bg0),var(--bg1));
+  overflow:hidden;
+}
+
+/* mist */
+.mist,
+.mist2,
+.grain{
+  position:fixed;
+  pointer-events:none;
+}
+
+.mist{
+  inset:-40%;
+  background:
+    radial-gradient(700px 500px at 20% 30%, rgba(110,150,255,.10), transparent 60%),
+    radial-gradient(800px 600px at 70% 40%, rgba(150,100,255,.08), transparent 62%),
+    radial-gradient(900px 650px at 45% 75%, rgba(120,200,255,.06), transparent 60%);
+  filter:blur(18px);
+  opacity:.8;
+  animation:drift 28s ease-in-out infinite alternate;
+}
+
+.mist2{
+  inset:-45%;
+  background:
+    radial-gradient(900px 700px at 65% 25%, rgba(110,150,255,.07), transparent 60%),
+    radial-gradient(850px 650px at 30% 55%, rgba(150,100,255,.06), transparent 62%);
+  filter:blur(26px);
+  opacity:.6;
+  animation:drift2 36s ease-in-out infinite alternate;
+}
+
+@keyframes drift{
+  0%{transform:translate3d(-2%, -1%, 0) scale(1.02)}
+  100%{transform:translate3d(2%, 1%, 0) scale(1.08)}
+}
+@keyframes drift2{
+  0%{transform:translate3d(2%, 1%, 0) scale(1.04)}
+  100%{transform:translate3d(-2%, -1%, 0) scale(1.1)}
+}
+
+.grain{
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+  opacity:.04;
+  mix-blend-mode:overlay;
+}
+
+.wrap{
+  width:100%;
+  max-width:var(--max);
+  position:relative;
+  z-index:2;
+  animation:enter 900ms ease-out forwards;
+  opacity:0;
+  transform:translateY(10px);
+}
+
+@keyframes enter{
+  to{opacity:1; transform:translateY(0)}
+}
+
+h1{
+  margin:0;
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:700;
+  font-size:clamp(44px, 6vw, 78px);
+  line-height:1.02;
+  letter-spacing:-1.2px;
+
+  background: linear-gradient(90deg, #8aa0ff, #b58cff, #9aa6ff, #7fb9ff);
+  background-size:300% 100%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  animation:titleFlow 18s ease-in-out infinite;
+}
+
+@keyframes titleFlow{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.links{
+  margin-top:80px;
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+  max-width:420px;
+}
+
+a{
+  color:var(--fg);
+  text-decoration:none;
+  font-size:18px;
+  letter-spacing:.4px;
+  position:relative;
+  width:fit-content;
+}
+
+a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  height:1px;
+  width:0%;
+  background:var(--fg);
+  transition:width .3s ease;
+  opacity:.6;
+}
+
+a:hover::after{
+  width:100%;
+}
+
+.small{
+  margin-top:70px;
+  font-size:12px;
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+<div class="mist"></div>
+<div class="mist2"></div>
+<div class="grain"></div>
+
+<main class="wrap">
+  <h1>
+    Yorkshire<br>
+    Modular Society
+  </h1>
+
+  <nav class="links">
+    <a href="https://yorkshiremodularsociety.bandcamp.com" target="_blank">Bandcamp</a>
+    <a href="https://www.instagram.com/yorkshiremodularsociety/" target="_blank">Instagram</a>
+    <a href="https://bsky.app/profile/yorkshiremodular.bsky.social" target="_blank">Bluesky</a>
+    <a href="mailto:patch@yorkshiremodularsociety.com">patch@yorkshiremodularsociety.com</a>
+  </nav>
+
+  <div class="small">yorkshiremodularsociety.com</div>
+</main>
+</body>
+</html>
