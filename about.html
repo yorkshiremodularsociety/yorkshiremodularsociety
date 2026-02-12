@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About</title>
+<meta name="description" content="West Yorkshire. Built from circuitry and air." />
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg0:#04050a;
+  --bg1:#060811;
+  --fg:#e6ebff;
+  --muted:#8f98ad;
+  --max:680px;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:90px 28px;
+  font-family:'Inter', system-ui, sans-serif;
+  color:var(--fg);
+  background:linear-gradient(180deg,var(--bg0),var(--bg1));
+}
+
+.wrap{
+  width:100%;
+  max-width:var(--max);
+  animation:enter 900ms ease-out forwards;
+  opacity:0;
+  transform:translateY(10px);
+}
+
+@keyframes enter{
+  to{opacity:1; transform:translateY(0)}
+}
+
+.copy{
+  font-size:18px;
+  letter-spacing:.4px;
+  line-height:1.7;
+}
+
+.copy div{
+  margin-bottom:10px;
+}
+
+.back{
+  margin-top:80px;
+  display:inline-block;
+  font-size:14px;
+  color:var(--muted);
+  text-decoration:none;
+  position:relative;
+}
+
+.back::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  height:1px;
+  width:0%;
+  background:var(--muted);
+  transition:width .3s ease;
+}
+
+.back:hover::after{
+  width:100%;
+}
+</style>
+</head>
+
+<body>
+<main class="wrap">
+
+  <div class="copy">
+    <div>West Yorkshire.</div>
+    <div>Built from circuitry and air.</div>
+  </div>
+
+  <a href="/" class="back">Back</a>
+
+</main>
+</body>
+</html>
