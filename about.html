@@ -1,3 +1,13 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About</title>
+<meta name="description" content="West Yorkshire. Built from circuitry and air." />
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --bg0:#04050a;
@@ -91,8 +101,37 @@ body{
   margin-bottom:10px;
 }
 
+.email{
+  margin-top:46px;
+  font-size:16px;
+  opacity:.85;
+}
+
+.email a{
+  color:var(--fg);
+  text-decoration:none;
+  position:relative;
+  width:fit-content;
+}
+
+.email a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  height:1px;
+  width:0%;
+  background:var(--fg);
+  transition:width .3s ease;
+  opacity:.6;
+}
+
+.email a:hover::after{
+  width:100%;
+}
+
 .back{
-  margin-top:120px;
+  margin-top:70px;
   display:inline-block;
   font-size:14px;
   color:var(--muted);
@@ -117,14 +156,11 @@ body{
 
 @media (max-width: 600px){
   body{ padding:70px 28px; }
-  .copy{
-    font-size:30px;
-    line-height:1.5;
-  }
+  .copy{ font-size:32px; line-height:1.45; }
+  .email{ font-size:18px; }
+  .back{ margin-top:60px; }
 }
-  
 </style>
-
 </head>
 
 <body>
@@ -139,13 +175,8 @@ body{
     <div>Built from circuitry and air.</div>
   </div>
 
-  </div>
-  
-  </div>
   <div class="email">
-    <a href="mailto:patch@yorkshiremodularsociety.com">
-      patch@yorkshiremodularsociety.com
-    </a>
+    <a href="mailto:patch@yorkshiremodularsociety.com">patch@yorkshiremodularsociety.com</a>
   </div>
 
   <a href="/" class="back">Back</a>
