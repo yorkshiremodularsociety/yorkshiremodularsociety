@@ -112,7 +112,11 @@ a{
   color:var(--fg);
   text-decoration:none;
   position:relative;
-  width:fit-content;
+  transition:opacity .25s ease;
+}
+
+a:hover{
+  opacity:.75;
 }
 
 a::after{
@@ -167,6 +171,7 @@ a:hover::after{
 </main>
 </body>
 </html>
+
 
 
 
