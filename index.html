@@ -6,17 +6,19 @@
 <title>Yorkshire Modular Society</title>
 <meta name="description" content="West Yorkshire. Built from circuitry and air. Selected releases and YMS Vault." />
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
-
 <meta property="og:title" content="Yorkshire Modular Society" />
 <meta property="og:description" content="YMS Vault / Bandcamp — Selected Releases" />
 <meta property="og:url" content="https://yorkshiremodularsociety.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="https://yorkshiremodularsociety.com/share.png" />
+
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://yorkshiremodularsociety.com/share.png" />
+
 <link rel="icon" href="/share.png" />
 <link rel="apple-touch-icon" href="/share.png" />
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -42,6 +44,7 @@ body{
   overflow:hidden;
 }
 
+/* mist background */
 .mist,
 .mist2,
 .grain{
@@ -108,18 +111,19 @@ body{
   letter-spacing:.4px;
 }
 
-a{
+.links a{
   color:var(--fg);
   text-decoration:none;
   position:relative;
-  transition:opacity .25s ease;
+  display:inline-block;
+  transition:color .2s ease;
 }
 
-a:hover{
-  opacity:.75;
+.links a:hover{
+  color:#ffffff;
 }
 
-a::after{
+.links a::after{
   content:"";
   position:absolute;
   left:0;
@@ -131,20 +135,18 @@ a::after{
   opacity:.6;
 }
 
-a:hover::after{
+.links a:hover::after{
   width:100%;
-}
-
-.email{
-  margin-top:50px;
-  font-size:15px;
-  opacity:.8;
 }
 
 .small{
   margin-top:80px;
   font-size:12px;
   color:var(--muted);
+}
+
+@media (max-width: 600px){
+  body{ padding:70px 28px; }
 }
 </style>
 </head>
@@ -157,13 +159,13 @@ a:hover::after{
 <main class="wrap">
 
   <nav class="links">
+    <a href="/releases.html">Selected Releases</a>
     <a href="https://yorkshiremodularsociety.bandcamp.com" target="_blank" rel="noopener">
       YMS Vault / Bandcamp
-    <a href="/releases.html">Selected Releases</a>
     </a>
     <a href="/about.html">About</a>
-    </a>
   </nav>
+
   <div class="small">
     yorkshiremodularsociety.com
   </div>
@@ -171,12 +173,3 @@ a:hover::after{
 </main>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
