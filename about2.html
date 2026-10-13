@@ -1,1 +1,322 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<title>About — Yorkshire Modular Society</title>
+<meta name="description" content="Yorkshire Modular Society — electronic music by Dominick Schofield, based in Bradford, West Yorkshire." />
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg0: #04050a;
+  --bg1: #060811;
+  --fg: #e6ebff;
+  --muted: #8f98ad;
+  --max: 680px;
+}
+
+html {
+  background: #04050a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 90px 28px;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--fg);
+  background: linear-gradient(180deg, var(--bg0), var(--bg1));
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Background */
+
+.mist,
+.mist2,
+.grain {
+  position: fixed;
+  pointer-events: none;
+}
+
+.mist {
+  inset: -40%;
+  background:
+    radial-gradient(700px 500px at 20% 30%, rgba(110,150,255,.10), transparent 60%),
+    radial-gradient(800px 600px at 70% 40%, rgba(150,100,255,.08), transparent 62%),
+    radial-gradient(900px 650px at 45% 75%, rgba(120,200,255,.06), transparent 60%);
+  filter: blur(18px);
+  opacity: .8;
+  animation: drift 28s ease-in-out infinite alternate;
+}
+
+.mist2 {
+  inset: -45%;
+  background:
+    radial-gradient(900px 700px at 65% 25%, rgba(110,150,255,.07), transparent 60%),
+    radial-gradient(850px 650px at 30% 55%, rgba(150,100,255,.06), transparent 62%);
+  filter: blur(26px);
+  opacity: .6;
+  animation: drift2 36s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  0% { transform: translate3d(-2%, -1%, 0) scale(1.02); }
+  100% { transform: translate3d(2%, 1%, 0) scale(1.08); }
+}
+
+@keyframes drift2 {
+  0% { transform: translate3d(2%, 1%, 0) scale(1.04); }
+  100% { transform: translate3d(-2%, -1%, 0) scale(1.1); }
+}
+
+.grain {
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+  opacity: .04;
+  mix-blend-mode: overlay;
+}
+
+/* Layout */
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  position: relative;
+  z-index: 2;
+  animation: enter 900ms ease-out forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.location {
+  font-size: 14px;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 30px;
+}
+
+.bio {
+  max-width: 540px;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 400;
+  margin: 0;
+}
+
+.email {
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.email a,
+.item a {
+  color: var(--fg);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  transition: color .2s ease;
+}
+
+.email a:hover,
+.item a:hover {
+  color: #fff;
+}
+
+.email a::after,
+.item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background: var(--fg);
+  transition: width .3s ease;
+  opacity: .6;
+}
+
+.email a:hover::after,
+.item a:hover::after {
+  width: 100%;
+}
+
+/* Sections */
+
+.section {
+  margin-top: 58px;
+}
+
+.title {
+  font-size: 14px;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+
+.item {
+  margin-bottom: 24px;
+}
+
+.item a {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.back {
+  margin-top: 42px;
+  display: inline-block;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: none;
+  position: relative;
+}
+
+.back::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background: var(--muted);
+  transition: width .3s ease;
+}
+
+.back:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 70px 28px;
+    align-items: flex-start;
+  }
+
+  .section {
+    margin-top: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mist,
+  .mist2,
+  .wrap {
+    animation: none;
+  }
+
+  .wrap {
+    opacity: 1;
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="mist"></div>
+<div class="mist2"></div>
+<div class="grain"></div>
+
+<main class="wrap">
+
+  <div class="location">
+    Bradford, West Yorkshire.
+  </div>
+
+  <p class="bio">
+    Yorkshire Modular Society is the electronic music project of Dominick Schofield. Ambient/drone and hardware-driven live electronics.
+  </p>
+
+  <div class="email">
+    <a href="mailto:patch@yorkshiremodularsociety.com">
+      patch@yorkshiremodularsociety.com
+    </a>
+  </div>
+
+  <section class="section">
+    <div class="title">Selected work</div>
+
+    <div class="item">
+      <a href="https://dragonseyerecordings.bandcamp.com/album/beneath-the-hanging-sky" target="_blank" rel="noopener">
+        Beneath the Hanging Sky
+      </a>
+      <div class="meta">Dragon’s Eye Recordings</div>
+    </div>
+
+    <div class="item">
+      <a href="https://rohsrecords.bandcamp.com/album/moving" target="_blank" rel="noopener">
+        Moving
+      </a>
+      <div class="meta">ROHS! Records</div>
+    </div>
+
+    <div class="item">
+      <a href="https://whitelabrecs.bandcamp.com/album/grandmother-yew" target="_blank" rel="noopener">
+        Grandmother Yew — with Laurel Morgan
+      </a>
+      <div class="meta">whitelabrecs</div>
+    </div>
+
+    <div class="item">
+      <a href="https://thetradesclub.com/events/unclass" target="_blank" rel="noopener">
+        Commissioned live performance
+      </a>
+      <div class="meta">BBC Radio 3 Unclassified</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="title">Live</div>
+
+    <div class="item">
+      <a href="https://youtu.be/N5BZzAxpCRQ" target="_blank" rel="noopener">
+        Ambient / Drone
+      </a>
+    </div>
+
+    <div class="item">
+      <a href="https://youtu.be/5OpDbOa-Rbo" target="_blank" rel="noopener">
+        Live Electronics / Techno
+      </a>
+    </div>
+  </section>
+
+  <a href="/" class="back">Back</a>
+
+</main>
+</body>
+</html>
+```
