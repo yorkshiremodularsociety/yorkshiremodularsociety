@@ -101,8 +101,15 @@ body{
   animation:enter 900ms ease-out forwards;
   opacity:0;
   transform:translateY(10px);
+  
 }
-
+.logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 64px;
+}
+  
 @keyframes enter{
   to{opacity:1; transform:translateY(0)}
 }
@@ -170,7 +177,13 @@ body{
 <div class="grain"></div>
 
 <main class="wrap">
-
+  
+<img
+  src="/yms-logo.png"
+  alt="Yorkshire Modular Society"
+  class="logo"
+  >
+  
   <nav class="links">
     <a href="/vault.html">YMS Vault</a>
     <a href="/releases.html">Releases</a>
