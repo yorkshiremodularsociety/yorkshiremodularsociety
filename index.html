@@ -64,7 +64,8 @@ body{
     radial-gradient(900px 650px at 45% 75%, rgba(120,200,255,.06), transparent 60%);
   filter:blur(18px);
   opacity:.8;
-  animation:drift 28s ease-in-out infinite alternate;
+  animation:drift 28s ease-in-out infinite alternate,
+          mist-colour 110s linear infinite;
 }
 
 .mist2{
@@ -74,7 +75,8 @@ body{
     radial-gradient(850px 650px at 30% 55%, rgba(150,100,255,.06), transparent 62%);
   filter:blur(26px);
   opacity:.6;
-  animation:drift2 36s ease-in-out infinite alternate;
+  animation:drift2 36s ease-in-out infinite alternate,
+          mist-colour-2 150s linear infinite;
 }
 
 @keyframes drift{
@@ -84,6 +86,22 @@ body{
 @keyframes drift2{
   0%{transform:translate3d(2%, 1%, 0) scale(1.04)}
   100%{transform:translate3d(-2%, -1%, 0) scale(1.1)}
+}
+
+  @keyframes mist-colour {
+  0% { filter:blur(18px) hue-rotate(0deg); }
+  25% { filter:blur(18px) hue-rotate(90deg); }
+  50% { filter:blur(18px) hue-rotate(180deg); }
+  75% { filter:blur(18px) hue-rotate(270deg); }
+  100% { filter:blur(18px) hue-rotate(360deg); }
+}
+
+@keyframes mist-colour-2 {
+  0% { filter:blur(26px) hue-rotate(0deg); }
+  25% { filter:blur(26px) hue-rotate(90deg); }
+  50% { filter:blur(26px) hue-rotate(180deg); }
+  75% { filter:blur(26px) hue-rotate(270deg); }
+  100% { filter:blur(26px) hue-rotate(360deg); }
 }
 
 .grain{
