@@ -1,0 +1,274 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Yorkshire Modular Society</title>
+<meta name="description" content="Yorkshire Modular Society – Experimental electronic music, from immersive ambient drone to hardware-driven techno." />
+
+<meta property="og:title" content="Yorkshire Modular Society" />
+<meta property="og:description" content="Yorkshire Modular Society – Experimental electronic music, from immersive ambient drone to hardware-driven techno." />
+<meta property="og:url" content="https://yorkshiremodularsociety.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://yorkshiremodularsociety.com/share.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://yorkshiremodularsociety.com/share.png" />
+
+<link rel="icon" href="/share.png" />
+<link rel="apple-touch-icon" href="/share.png" />
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg0:#04050a;
+  --bg1:#060811;
+  --fg:#e6ebff;
+  --muted:#8f98ad;
+  --max:680px;
+}
+
+html {
+  background:#04050a;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:90px 28px;
+  font-family:'Inter', system-ui, sans-serif;
+  color:var(--fg);
+  background:linear-gradient(180deg,var(--bg0),var(--bg1));
+  overflow:hidden;
+  position:relative;
+  isolation:isolate;
+}
+
+/* mist background */
+.mist,
+.mist2,
+.grain{
+  position:fixed;
+  pointer-events:none;
+}
+
+.mist{
+  inset:-40%;
+  background:
+    radial-gradient(700px 500px at 20% 30%, rgba(110,150,255,.10), transparent 60%),
+    radial-gradient(800px 600px at 70% 40%, rgba(150,100,255,.08), transparent 62%),
+    radial-gradient(900px 650px at 45% 75%, rgba(120,200,255,.06), transparent 60%);
+  filter:blur(18px);
+  opacity:.8;
+  animation:drift 28s ease-in-out infinite alternate,
+          mist-colour 110s linear infinite;
+}
+
+.mist2{
+  inset:-45%;
+  background:
+    radial-gradient(900px 700px at 65% 25%, rgba(110,150,255,.07), transparent 60%),
+    radial-gradient(850px 650px at 30% 55%, rgba(150,100,255,.06), transparent 62%);
+  filter:blur(26px);
+  opacity:.6;
+  animation:drift2 36s ease-in-out infinite alternate,
+          mist-colour-2 150s linear infinite;
+}
+
+/* geological surface texture */
+.texture{
+  position:fixed;
+  inset:-10%;
+  pointer-events:none;
+  z-index:1;
+  opacity:.45;
+  mix-blend-mode:soft-light;
+
+  background-image:
+    radial-gradient(ellipse at 22% 35%,
+      rgba(115,150,55,.20), transparent 38%),
+    radial-gradient(ellipse at 78% 68%,
+      rgba(65,115,65,.18), transparent 42%),
+    radial-gradient(ellipse at 50% 15%,
+      rgba(100,80,45,.12), transparent 40%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.025' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+
+  background-size:
+    900px 700px,
+    1100px 800px,
+    1000px 700px,
+    500px 500px;
+
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+}
+
+@keyframes drift{
+  0%{transform:translate3d(-2%, -1%, 0) scale(1.02)}
+  100%{transform:translate3d(2%, 1%, 0) scale(1.08)}
+}
+
+@keyframes drift2{
+  0%{transform:translate3d(2%, 1%, 0) scale(1.04)}
+  100%{transform:translate3d(-2%, -1%, 0) scale(1.1)}
+}
+
+@keyframes mist-colour {
+  0% { filter:blur(18px) hue-rotate(0deg); }
+  25% { filter:blur(18px) hue-rotate(90deg); }
+  50% { filter:blur(18px) hue-rotate(180deg); }
+  75% { filter:blur(18px) hue-rotate(270deg); }
+  100% { filter:blur(18px) hue-rotate(360deg); }
+}
+
+@keyframes mist-colour-2 {
+  0% { filter:blur(26px) hue-rotate(0deg); }
+  25% { filter:blur(26px) hue-rotate(90deg); }
+  50% { filter:blur(26px) hue-rotate(180deg); }
+  75% { filter:blur(26px) hue-rotate(270deg); }
+  100% { filter:blur(26px) hue-rotate(360deg); }
+}
+
+.grain{
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+  opacity:.04;
+  mix-blend-mode:overlay;
+}
+
+.wrap{
+  width:100%;
+  max-width:var(--max);
+  position:relative;
+  z-index:2;
+  animation:enter 900ms ease-out forwards;
+  opacity:0;
+  transform:translateY(10px);
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 64px;
+  opacity: 0;
+  animation: logo-arrive 3s ease-out forwards;
+}
+
+@keyframes logo-arrive {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes enter{
+  to{opacity:1; transform:translateY(0)}
+}
+
+.links{
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+  font-size:18px;
+  letter-spacing:.4px;
+  align-items:flex-start;
+}
+
+.links a{
+  color:var(--fg);
+  text-decoration:none;
+  position:relative;
+  display:inline-block;
+  transition:color .2s ease;
+}
+
+.links a:hover{
+  color:#ffffff;
+}
+
+.links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  height:1px;
+  width:0%;
+  background:var(--fg);
+  transition:width .3s ease;
+  opacity:.6;
+}
+
+.links a:hover::after{
+  width:100%;
+}
+
+.small{
+  margin-top:80px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* mobile background experiment */
+@media (max-width: 600px){
+
+  body{
+    padding:70px 28px;
+    background:#04050a;
+  }
+
+  .mist,
+  .mist2{
+    inset:-15%;
+    z-index:0;
+  }
+
+  .texture{
+    position:absolute;
+    inset:0;
+    min-height:100%;
+  }
+
+  .grain{
+    z-index:1;
+  }
+
+  .wrap{
+    z-index:2;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="mist"></div>
+<div class="mist2"></div>
+<div class="texture"></div>
+<div class="grain"></div>
+
+<main class="wrap">
+
+<img
+  src="/yms-logo-optimized.webp"
+  alt="Yorkshire Modular Society"
+  class="logo"
+>
+
+<nav class="links">
+  <a href="/vault.html">YMS Vault</a>
+  <a href="/releases.html">Releases</a>
+  <a href="/about.html">About</a>
+</nav>
+
+<div class="small">
+  yorkshiremodularsociety.com
+</div>
+
+</main>
+</body>
+</html>
