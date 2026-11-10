@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,244 +9,306 @@
 <style>
 :root {
   --acid: #a5d83c;
-  --muted: #78836f;
+  --muted: #9aa293;
   --line: rgba(165,216,60,.22);
+  --panel: #101510;
 }
 * { box-sizing: border-box; }
-html, body { margin:0; width:100%; min-height:100%; background:#080b08; }
+html, body { margin: 0; min-height: 100%; background: #080b08; }
 body {
-  min-height:100svh; overflow:hidden; color:var(--acid);
-  font-family:Arial,Helvetica,sans-serif;
+  min-height: 100svh;
+  padding: 2px;
+  color: var(--acid);
+  font-family: Arial, Helvetica, sans-serif;
 }
-#mist {
-  position:fixed; inset:0; width:100%; height:100%;
-  display:block; z-index:0;
+.player {
+  min-height: calc(100svh - 4px);
+  width: 100%;
+  border-radius: 21px;
+  background: var(--panel);
+  padding: clamp(16px, 1.7vw, 25px);
+  display: flex;
+  flex-direction: column;
 }
-.grain {
-  position:fixed; inset:-50%; z-index:1; pointer-events:none;
-  opacity:.13;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
-  animation: grain 1.7s steps(2) infinite;
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 45px;
+  margin-bottom: 20px;
 }
-@keyframes grain {
-  0% { transform:translate(0,0); }
-  25% { transform:translate(2%,-1%); }
-  50% { transform:translate(-1%,2%); }
-  75% { transform:translate(1%,1%); }
-  100% { transform:translate(-2%,-1%); }
-}
-.shade {
-  position:fixed; inset:0; z-index:2; pointer-events:none;
-  background:radial-gradient(ellipse at 50% 48%, transparent 10%, rgba(0,0,0,.2) 65%, #050705 120%);
-}
-.interface {
-  position:relative; z-index:3; min-height:100svh;
-  display:flex; flex-direction:column; padding:clamp(20px,4vw,52px);
-}
-header, footer {
-  display:flex; align-items:center; justify-content:space-between; gap:20px;
-}
-header { padding-bottom:20px; border-bottom:1px solid var(--line); }
 .brand {
-  margin:0; font-size:clamp(29px,5vw,54px); line-height:1;
-  letter-spacing:-.075em; font-weight:700;
+  margin: 0;
+  font-size: clamp(23px, 2.7vw, 36px);
+  line-height: 1;
+  letter-spacing: -.055em;
+  font-weight: 700;
 }
-.status, .eyebrow, footer, .track-meta {
-  font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border-radius: 30px;
+  padding: 7px 14px;
+  background: rgba(20, 92, 43, .32);
+  color: #20d86b;
+  font-size: clamp(11px, 1.4vw, 19px);
+  letter-spacing: .07em;
+  white-space: nowrap;
 }
-.status {
-  border:1px solid var(--line); padding:10px 13px; white-space:nowrap;
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #20d86b;
+  box-shadow: 0 0 10px rgba(32,216,107,.55);
 }
-.status-dot {
-  display:inline-block; width:7px; height:7px; border-radius:50%;
-  background:var(--acid); margin-right:8px;
-  box-shadow:0 0 12px rgba(165,216,60,.65);
+.visual {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 300px;
+  overflow: hidden;
+  border-radius: 27px;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 58% 38% at 52% 106%, rgba(73,205,112,.72), transparent 75%),
+    radial-gradient(ellipse 65% 35% at 83% 91%, rgba(35,156,91,.46), transparent 75%),
+    radial-gradient(ellipse 60% 31% at 18% 90%, rgba(38,133,76,.48), transparent 78%),
+    linear-gradient(180deg, #080909 0%, #090b09 45%, #101b12 100%);
+  border: 1px solid rgba(165,216,60,.08);
 }
-main {
-  flex:1; display:flex; flex-direction:column;
-  justify-content:flex-end; padding:30px 0 5vh;
+.mist {
+  position: absolute;
+  inset: -30%;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0,0,0);
 }
-.eyebrow { color:var(--muted); margin-bottom:13px; }
-.track-title {
-  margin:0; font-size:clamp(36px,8vw,86px); line-height:.95;
-  letter-spacing:-.075em; font-weight:600;
-  text-shadow:0 0 35px rgba(125,170,40,.12);
+.mist-a {
+  background:
+    radial-gradient(ellipse 38% 24% at 29% 72%, rgba(47,163,83,.34), transparent 78%),
+    radial-gradient(ellipse 42% 27% at 72% 76%, rgba(67,207,116,.32), transparent 78%),
+    radial-gradient(ellipse 48% 25% at 50% 96%, rgba(113,224,139,.25), transparent 78%);
+  filter: blur(22px);
+  animation: drift-a 58s ease-in-out infinite alternate;
 }
-.track-meta { color:#a0aa96; margin-top:17px; }
+.mist-b {
+  background:
+    radial-gradient(ellipse 36% 22% at 70% 60%, rgba(20,111,66,.34), transparent 80%),
+    radial-gradient(ellipse 35% 24% at 28% 88%, rgba(92,196,108,.23), transparent 80%);
+  filter: blur(34px);
+  animation: drift-b 76s ease-in-out infinite alternate;
+}
+.mist-c {
+  background:
+    radial-gradient(ellipse 44% 18% at 50% 82%, rgba(132,207,123,.18), transparent 80%);
+  filter: blur(42px);
+  animation: drift-c 93s ease-in-out infinite alternate;
+}
+@keyframes drift-a {
+  from { transform: translate3d(-3%, 2%, 0) scale(1); }
+  to { transform: translate3d(3%, -2%, 0) scale(1.08); }
+}
+@keyframes drift-b {
+  from { transform: translate3d(3%, -2%, 0) scale(1.04); }
+  to { transform: translate3d(-3%, 2%, 0) scale(1); }
+}
+@keyframes drift-c {
+  from { transform: translate3d(-2%, -2%, 0) scale(1); }
+  to { transform: translate3d(2%, 2%, 0) scale(1.07); }
+}
+.texture {
+  position: absolute;
+  inset: 0;
+  opacity: .17;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.34'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+.visual:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,.18), transparent 38%, rgba(0,0,0,.03));
+}
+.track { padding: 25px 0 21px; }
+.track h2 {
+  margin: 0;
+  font-size: clamp(30px, 3.2vw, 43px);
+  line-height: 1;
+  letter-spacing: -.045em;
+  font-weight: 700;
+}
+.artist {
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: clamp(13px, 1.55vw, 21px);
+  letter-spacing: .015em;
+}
+.rule {
+  height: 1px;
+  background: var(--line);
+  flex: 0 0 1px;
+}
 .controls {
-  display:flex; align-items:center; gap:18px; margin-top:34px;
+  min-height: 88px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 17px 0 5px;
 }
-button {
-  color:var(--acid); background:rgba(5,8,5,.45);
-  border:1px solid rgba(165,216,60,.65); border-radius:0;
-  padding:14px 20px; cursor:pointer; font:inherit;
-  font-size:10px; letter-spacing:.18em; text-transform:uppercase;
-  transition:background .2s,color .2s,border-color .2s;
+.control {
+  border: 0;
+  background: transparent;
+  color: var(--acid);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }
-button:hover { background:var(--acid); color:#080b08; }
-button:focus-visible, input:focus-visible { outline:2px solid white; outline-offset:4px; }
+.control:focus-visible, input:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+.play {
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  background: var(--acid);
+  color: #101510;
+}
+.play:hover { background: #c0ed61; }
+.volume-wrap {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .volume {
-  display:flex; align-items:center; gap:12px;
-  color:var(--muted); font-size:9px; letter-spacing:.18em;
-  margin-left:auto;
+  width: 0;
+  opacity: 0;
+  transition: width .2s ease, opacity .2s ease;
+  accent-color: var(--acid);
 }
-input[type=range] { width:110px; accent-color:var(--acid); }
-footer {
-  color:#78836f; border-top:1px solid var(--line); padding-top:17px;
-  font-size:9px;
+.volume-wrap:hover .volume,
+.volume-wrap:focus-within .volume {
+  width: 92px;
+  opacity: 1;
 }
-@media(max-width:560px) {
-  .interface { padding:20px; }
-  .status { font-size:8px; padding:8px; }
-  .controls { flex-wrap:wrap; gap:12px; }
-  .volume { width:100%; margin:8px 0 0; }
-  input[type=range] { flex:1; }
-  footer { font-size:8px; }
+.track-count {
+  text-align: center;
+  color: var(--acid);
+  font-size: clamp(11px, 1.45vw, 19px);
+  letter-spacing: .025em;
+  padding: 10px 0 0;
+}
+@media (max-width: 600px) {
+  .player { padding: 15px; border-radius: 16px; }
+  .top { margin-bottom: 14px; }
+  .visual { min-height: 42svh; border-radius: 19px; }
+  .track { padding: 20px 0 17px; }
+  .artist { margin-top: 17px; }
+  .controls { min-height: 76px; }
+  .volume-wrap:hover .volume, .volume-wrap:focus-within .volume {
+    width: 65px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mist { animation: none !important; }
 }
 </style>
 </head>
 <body>
-<canvas id="mist" aria-hidden="true"></canvas>
-<div class="grain"></div><div class="shade"></div>
-
-<div class="interface">
-  <header>
+<section class="player" aria-label="YMS ON AIR music player">
+  <header class="top">
     <h1 class="brand">YMS / ON AIR</h1>
-    <div class="status"><span class="status-dot"></span>TRANSMISSION 001</div>
+    <div class="live"><span class="live-dot"></span>TRANSMITTING</div>
   </header>
 
-  <main>
-    <div class="eyebrow">YORKSHIRE MODULAR SOCIETY</div>
-    <h2 class="track-title">0205</h2>
-    <div class="track-meta">ONE RECORDING / CONTINUOUS PLAYBACK</div>
+  <div class="visual" aria-label="Slow-moving abstract green mist visual">
+    <div class="mist mist-a"></div>
+    <div class="mist mist-b"></div>
+    <div class="mist mist-c"></div>
+    <div class="texture"></div>
+  </div>
 
-    <div class="controls">
-      <button id="play" type="button">Start transmission</button>
-      <div class="volume">
-        <label for="volume">VOLUME</label>
-        <input id="volume" type="range" min="0" max="1" step=".01" value=".7">
-      </div>
+  <section class="track">
+    <h2>0205</h2>
+    <p class="artist">YORKSHIRE MODULAR SOCIETY</p>
+  </section>
+
+  <div class="rule"></div>
+
+  <div class="controls">
+    <div></div>
+    <button class="control play" id="play" type="button" aria-label="Start transmission" title="Start transmission">
+      <svg id="play-icon" width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+    <div class="volume-wrap">
+      <button class="control" id="mute" type="button" aria-label="Mute or unmute" title="Mute or unmute">
+        <svg width="27" height="27" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M11 5 6 9H3v6h3l5 4z"/>
+          <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+          <path d="M19 5a10 10 0 0 1 0 14"/>
+        </svg>
+      </button>
+      <input class="volume" id="volume" type="range" min="0" max="1" step=".01" value=".7" aria-label="Volume">
     </div>
-  </main>
+  </div>
 
-  <footer>
-    <span>YMS TRANSMISSION SYSTEM</span>
-    <span>BRADFORD / ENGLAND</span>
-  </footer>
-</div>
+  <div class="track-count">ONE RECORDING / CONTINUOUS PLAYBACK</div>
+</section>
 
 <audio id="audio" src="audio/0205.mp3" preload="metadata" loop></audio>
 
 <script>
 const audio = document.getElementById('audio');
-const playButton = document.getElementById('play');
+const play = document.getElementById('play');
+const playIcon = document.getElementById('play-icon');
 const volume = document.getElementById('volume');
-let audioContext, analyser, source, bins;
+const mute = document.getElementById('mute');
+
 audio.volume = Number(volume.value);
 
-function prepareAudio() {
-  if (audioContext) return;
-  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-  if (!AudioContextClass) return;
-  audioContext = new AudioContextClass();
-  analyser = audioContext.createAnalyser();
-  analyser.fftSize = 256;
-  analyser.smoothingTimeConstant = .96;
-  source = audioContext.createMediaElementSource(audio);
-  source.connect(analyser);
-  analyser.connect(audioContext.destination);
-  bins = new Uint8Array(analyser.frequencyBinCount);
+function setPlaying(isPlaying) {
+  play.setAttribute('aria-label', isPlaying ? 'Pause transmission' : 'Start transmission');
+  play.title = isPlaying ? 'Pause transmission' : 'Start transmission';
+  playIcon.innerHTML = isPlaying
+    ? '<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>'
+    : '<path d="M8 5v14l11-7z"/>';
 }
 
-playButton.addEventListener('click', async () => {
+play.addEventListener('click', async () => {
+  if (!audio.paused) {
+    audio.pause();
+    return;
+  }
   try {
-    prepareAudio();
-    if (audioContext && audioContext.state === 'suspended') await audioContext.resume();
-    if (audio.paused) {
-      await audio.play();
-      playButton.textContent = 'Pause transmission';
-    } else {
-      audio.pause();
-      playButton.textContent = 'Resume transmission';
-    }
-  } catch (err) {
-    playButton.textContent = 'Playback unavailable — retry';
-    console.error(err);
+    await audio.play();
+  } catch (error) {
+    console.error('Audio playback failed:', error);
+    play.title = 'Playback unavailable — try again';
   }
 });
-audio.addEventListener('pause', () => {
-  if (audio.ended) return;
-  if (playButton.textContent === 'Pause transmission') playButton.textContent = 'Resume transmission';
+
+audio.addEventListener('play', () => setPlaying(true));
+audio.addEventListener('pause', () => setPlaying(false));
+audio.addEventListener('ended', () => setPlaying(false));
+
+volume.addEventListener('input', () => {
+  audio.volume = Number(volume.value);
+  audio.muted = audio.volume === 0;
 });
-audio.addEventListener('play', () => playButton.textContent = 'Pause transmission');
-volume.addEventListener('input', () => audio.volume = Number(volume.value));
 
-/* Slow, layered mist: organic drifting fields, not an equaliser. */
-const canvas = document.getElementById('mist');
-const ctx = canvas.getContext('2d');
-let W=0,H=0,D=1,t=0;
-function resize() {
-  D = Math.min(window.devicePixelRatio || 1, 2);
-  W = window.innerWidth; H = window.innerHeight;
-  canvas.width = Math.floor(W*D); canvas.height = Math.floor(H*D);
-  canvas.style.width = W+'px'; canvas.style.height = H+'px';
-  ctx.setTransform(D,0,0,D,0,0);
-}
-window.addEventListener('resize', resize); resize();
-
-function blob(x,y,rx,ry,rotation,alpha) {
-  ctx.save();
-  ctx.translate(x,y); ctx.rotate(rotation);
-  ctx.scale(1, ry/rx);
-  const g=ctx.createRadialGradient(0,0,rx*.04,0,0,rx);
-  g.addColorStop(0,`rgba(116,157,48,${alpha})`);
-  g.addColorStop(.38,`rgba(69,103,35,${alpha*.62})`);
-  g.addColorStop(1,'rgba(25,43,22,0)');
-  ctx.fillStyle=g;
-  ctx.beginPath(); ctx.arc(0,0,rx,0,Math.PI*2); ctx.fill();
-  ctx.restore();
-}
-function render() {
-  requestAnimationFrame(render);
-  t += .0018;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#080b08'; ctx.fillRect(0,0,W,H);
-
-  let response=0;
-  if (analyser && !audio.paused) {
-    analyser.getByteFrequencyData(bins);
-    for(let i=0;i<bins.length;i++) response += bins[i];
-    response = response/(bins.length*255);
-  }
-  const breathe = 1 + response*.16;
-
-  ctx.globalCompositeOperation='screen';
-  blob(W*(.24+.10*Math.sin(t*.7)), H*(.43+.10*Math.cos(t*.55)),
-       Math.max(W,H)*.42*breathe, Math.max(W,H)*.22, -.25, .105);
-  blob(W*(.77+.09*Math.cos(t*.48)), H*(.59+.12*Math.sin(t*.62)),
-       Math.max(W,H)*.38*breathe, Math.max(W,H)*.20, .35, .09);
-  blob(W*(.52+.13*Math.sin(t*.31)), H*(.18+.08*Math.cos(t*.4)),
-       Math.max(W,H)*.34, Math.max(W,H)*.17, .12, .065);
-  blob(W*(.43+.08*Math.cos(t*.24)), H*(.82+.05*Math.sin(t*.36)),
-       Math.max(W,H)*.30, Math.max(W,H)*.16, -.4, .055);
-
-  /* Fine drifting translucent filaments add surface and depth. */
-  for(let j=0;j<7;j++) {
-    ctx.beginPath();
-    for(let i=0;i<=90;i++) {
-      const x=(i/90)*W;
-      const y=H*(.22+j*.095)
-        + Math.sin(i*.055+t*(.7+j*.035)+j)*H*.045
-        + Math.sin(i*.018-t*.45+j*1.7)*H*.035;
-      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-    }
-    ctx.strokeStyle=`rgba(143,181,77,${.018 + response*.012})`;
-    ctx.lineWidth=1.2;
-    ctx.stroke();
-  }
-  ctx.globalCompositeOperation='source-over';
-}
-render();
+mute.addEventListener('click', () => {
+  audio.muted = !audio.muted;
+  mute.style.opacity = audio.muted ? '.45' : '1';
+});
 </script>
 </body>
 </html>
