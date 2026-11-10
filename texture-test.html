@@ -78,6 +78,29 @@ body{
   animation:drift2 36s ease-in-out infinite alternate,
           mist-colour-2 150s linear infinite;
 }
+  /* geological surface texture */
+.texture {
+  position: fixed;
+  inset: -10%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .22;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(ellipse at 18% 28%,
+      rgba(105,125,75,.12), transparent 38%),
+    radial-gradient(ellipse at 75% 65%,
+      rgba(65,90,75,.16), transparent 42%),
+    radial-gradient(ellipse at 48% 85%,
+      rgba(110,75,55,.10), transparent 35%),
+    repeating-linear-gradient(
+      125deg,
+      transparent 0px,
+      transparent 18px,
+      rgba(130,145,100,.025) 19px,
+      transparent 21px
+    );
+}
 
 @keyframes drift{
   0%{transform:translate3d(-2%, -1%, 0) scale(1.02)}
@@ -201,8 +224,9 @@ body{
 <body>
 <div class="mist"></div>
 <div class="mist2"></div>
+<div class="texture"></div>
 <div class="grain"></div>
-
+  
 <main class="wrap">
   
 <img
