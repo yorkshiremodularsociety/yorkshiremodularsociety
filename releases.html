@@ -51,7 +51,8 @@ body{
     radial-gradient(900px 650px at 45% 75%, rgba(120,200,255,.06), transparent 60%);
   filter:blur(18px);
   opacity:.8;
-  animation:drift 28s ease-in-out infinite alternate;
+  animation:drift 28s ease-in-out infinite alternate,
+          mist-colour 110s linear infinite;
 }
 
 .mist2{
@@ -61,7 +62,34 @@ body{
     radial-gradient(850px 650px at 30% 55%, rgba(150,100,255,.06), transparent 62%);
   filter:blur(26px);
   opacity:.6;
-  animation:drift2 36s ease-in-out infinite alternate;
+  animation:drift2 36s ease-in-out infinite alternate,
+          mist-colour-2 150s linear infinite;
+}
+  /* geological surface texture */
+.texture{
+  position:fixed;
+  inset:-10%;
+  pointer-events:none;
+  z-index:1;
+  opacity:.45;
+  mix-blend-mode:soft-light;
+
+  background-image:
+    radial-gradient(ellipse at 22% 35%,
+      rgba(115,150,55,.20), transparent 38%),
+    radial-gradient(ellipse at 78% 68%,
+      rgba(65,115,65,.18), transparent 42%),
+    radial-gradient(ellipse at 50% 15%,
+      rgba(100,80,45,.12), transparent 40%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.025' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+
+  background-size:
+    900px 700px,
+    1100px 800px,
+    1000px 700px,
+    500px 500px;
+
+  background-repeat:no-repeat, no-repeat, no-repeat, repeat;
 }
 
 @keyframes drift{
@@ -71,6 +99,21 @@ body{
 @keyframes drift2{
   0%{transform:translate3d(2%, 1%, 0) scale(1.04)}
   100%{transform:translate3d(-2%, -1%, 0) scale(1.1)}
+}
+  @keyframes mist-colour {
+  0% { filter:blur(18px) hue-rotate(110deg); }
+  25% { filter:blur(18px) hue-rotate(200deg); }
+  50% { filter:blur(18px) hue-rotate(290deg); }
+  75% { filter:blur(18px) hue-rotate(380deg); }
+  100% { filter:blur(18px) hue-rotate(470deg); }
+}
+
+@keyframes mist-colour-2 {
+  0% { filter:blur(26px) hue-rotate(110deg); }
+  25% { filter:blur(26px) hue-rotate(200deg); }
+  50% { filter:blur(26px) hue-rotate(290deg); }
+  75% { filter:blur(26px) hue-rotate(380deg); }
+  100% { filter:blur(26px) hue-rotate(470deg); }
 }
 
 .grain{
@@ -192,6 +235,7 @@ body{
 <body>
 <div class="mist"></div>
 <div class="mist2"></div>
+<div class="texture"></div>
 <div class="grain"></div>
 
 <main class="wrap">
