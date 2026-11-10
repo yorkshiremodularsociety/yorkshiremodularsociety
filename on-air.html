@@ -1,16 +1,16 @@
+
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#04050a">
+<meta name="theme-color" content="#020309">
 <title>Yorkshire Modular Society / Transmitting</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #04050a;
+  --bg: #020309;
   --fg: #e6ebff;
   --muted: #8f98ad;
   --acid: #a5d83c;
@@ -40,101 +40,120 @@ body {
   inset: 0;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 50% 50%, #0b1020 0%, #060811 65%, #04050a 100%);
+    radial-gradient(ellipse at 50% 50%,
+      #080b18 0%, #040611 55%, #020309 100%);
   z-index: 0;
 }
 
 .mist {
   position: absolute;
-  inset: -35%;
+  inset: -40%;
   pointer-events: none;
-  will-change: transform;
+  will-change: transform, opacity;
 }
 
 .mist-1 {
   background:
-    radial-gradient(ellipse 38% 30% at 20% 35%,
-      rgba(100,130,255,.24), transparent 75%),
-    radial-gradient(ellipse 40% 32% at 75% 55%,
-      rgba(120,90,220,.21), transparent 75%),
-    radial-gradient(ellipse 32% 35% at 48% 85%,
-      rgba(80,155,255,.19), transparent 75%);
+    radial-gradient(ellipse 42% 32% at 20% 35%,
+      rgba(76,105,220,.30), transparent 75%),
+    radial-gradient(ellipse 40% 34% at 75% 55%,
+      rgba(105,65,190,.26), transparent 75%),
+    radial-gradient(ellipse 35% 38% at 48% 85%,
+      rgba(45,125,210,.23), transparent 75%);
   filter: blur(38px);
-  opacity: .95;
-  animation: drift1 75s ease-in-out infinite alternate;
+  animation: drift1 75s ease-in-out infinite alternate,
+             colour1 95s ease-in-out infinite alternate;
 }
 
 .mist-2 {
   background:
-    radial-gradient(ellipse 42% 28% at 70% 22%,
-      rgba(100,170,255,.22), transparent 75%),
-    radial-gradient(ellipse 36% 38% at 25% 75%,
-      rgba(130,95,210,.22), transparent 75%),
-    radial-gradient(ellipse 48% 26% at 80% 85%,
-      rgba(65,120,210,.17), transparent 75%);
+    radial-gradient(ellipse 42% 30% at 70% 22%,
+      rgba(60,145,225,.25), transparent 75%),
+    radial-gradient(ellipse 38% 40% at 25% 75%,
+      rgba(115,65,190,.24), transparent 75%),
+    radial-gradient(ellipse 48% 28% at 80% 85%,
+      rgba(45,85,190,.23), transparent 75%);
   filter: blur(48px);
-  opacity: .85;
-  animation: drift2 95s ease-in-out infinite alternate;
+  animation: drift2 95s ease-in-out infinite alternate,
+             colour2 120s ease-in-out infinite alternate;
 }
 
 .mist-3 {
   background:
-    radial-gradient(ellipse 55% 22% at 50% 48%,
-      rgba(110,135,200,.17), transparent 80%),
-    radial-gradient(ellipse 30% 45% at 15% 50%,
-      rgba(85,110,210,.18), transparent 80%),
-    radial-gradient(ellipse 40% 35% at 90% 30%,
-      rgba(145,105,210,.15), transparent 80%);
-  filter: blur(30px);
-  opacity: .9;
-  animation: drift3 110s ease-in-out infinite alternate;
+    radial-gradient(ellipse 55% 25% at 50% 48%,
+      rgba(110,135,200,.20), transparent 80%),
+    radial-gradient(ellipse 32% 45% at 15% 50%,
+      rgba(55,105,210,.23), transparent 80%),
+    radial-gradient(ellipse 42% 38% at 90% 30%,
+      rgba(145,85,210,.19), transparent 80%);
+  filter: blur(34px);
+  animation: drift3 110s ease-in-out infinite alternate,
+             colour3 140s ease-in-out infinite alternate;
 }
 
 .mist-4 {
   background:
-    radial-gradient(ellipse 35% 30% at 35% 25%,
-      rgba(130,180,255,.13), transparent 75%),
-    radial-gradient(ellipse 50% 35% at 65% 75%,
-      rgba(100,115,190,.17), transparent 75%);
+    radial-gradient(ellipse 38% 32% at 35% 25%,
+      rgba(85,150,230,.18), transparent 75%),
+    radial-gradient(ellipse 50% 38% at 65% 75%,
+      rgba(75,90,190,.21), transparent 75%);
   filter: blur(55px);
-  opacity: .8;
   animation: drift4 125s ease-in-out infinite alternate;
 }
 
 .mist-5 {
   background:
-    radial-gradient(ellipse 65% 24% at 50% 55%,
-      rgba(110,130,180,.12), transparent 80%);
+    radial-gradient(ellipse 65% 30% at 50% 55%,
+      rgba(90,115,190,.15), transparent 80%);
   filter: blur(65px);
-  opacity: .9;
   animation: drift5 140s ease-in-out infinite alternate;
 }
 
-/* SLOW INDEPENDENT MOVEMENT */
+/* COLOUR EVOLUTION */
+
+@keyframes colour1 {
+  0% { opacity: .65; }
+  50% { opacity: 1; }
+  100% { opacity: .72; }
+}
+
+@keyframes colour2 {
+  0% { opacity: .9; }
+  50% { opacity: .55; }
+  100% { opacity: 1; }
+}
+
+@keyframes colour3 {
+  0% { opacity: .55; }
+  50% { opacity: 1; }
+  100% { opacity: .6; }
+}
+
+/* DRIFT */
 
 @keyframes drift1 {
-  from { transform: translate3d(-3%, -2%, 0) scale(1); }
-  to   { transform: translate3d(4%, 3%, 0) scale(1.12); }
+  from { transform: translate3d(-4%,-2%,0) scale(1); }
+  to { transform: translate3d(4%,3%,0) scale(1.12); }
 }
 
 @keyframes drift2 {
-  from { transform: translate3d(3%, 3%, 0) scale(1.08); }
-  to   { transform: translate3d(-4%, -3%, 0) scale(1); }
+  from { transform: translate3d(4%,3%,0) scale(1.08); }
+  to { transform: translate3d(-4%,-3%,0) scale(1); }
 }
 
 @keyframes drift3 {
-  from { transform: translate3d(-2%, 4%, 0) scale(1.05); }
-  to   { transform: translate3d(3%, -3%, 0) scale(1.13); }
+  from { transform: translate3d(-3%,4%,0) scale(1.05); }
+  to { transform: translate3d(3%,-3%,0) scale(1.13); }
 }
 
 @keyframes drift4 {
-  from { transform: translate3d(4%, -3%, 0) scale(1); }
-  to   { transform: translate3d(-3%, 4%, 0) scale(1.1); }
+  from { transform: translate3d(4%,-3%,0) scale(1); }
+  to { transform: translate3d(-3%,4%,0) scale(1.1); }
 }
 
 @keyframes drift5 {
-  from { transform: translate3d(-3%, 2%, 0) scale(1.1); }
-  to   { transform: translate3d(3%, -2%, 0) scale(1); }
+  from { transform: translate3d(-3%,2%,0) scale(1.1); }
+  to { transform: translate3d(3%,-2%,0) scale(1); }
 }
 
 /* GEOLOGICAL TEXTURE */
@@ -144,16 +163,16 @@ body {
   inset: -10%;
   z-index: 2;
   pointer-events: none;
-  opacity: .55;
+  opacity: .48;
   mix-blend-mode: soft-light;
 
   background-image:
     radial-gradient(ellipse at 22% 35%,
-      rgba(115,150,200,.18), transparent 38%),
+      rgba(100,130,200,.16), transparent 38%),
     radial-gradient(ellipse at 78% 68%,
-      rgba(100,115,190,.16), transparent 42%),
+      rgba(75,100,190,.15), transparent 42%),
     radial-gradient(ellipse at 50% 15%,
-      rgba(140,110,190,.12), transparent 40%),
+      rgba(120,90,190,.12), transparent 40%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.025' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
 
   background-size:
@@ -195,23 +214,31 @@ body {
   gap: 15px;
 }
 
-.identity,
-.transmitting {
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 17px;
   font-size: 11px;
-  font-weight: 400;
   letter-spacing: 2px;
+  color: rgba(230,235,255,.65);
   text-transform: uppercase;
 }
 
-.identity {
-  color: rgba(230,235,255,.65);
+.index {
+  color: rgba(230,235,255,.45);
+  text-decoration: none;
+  transition: color .3s ease;
 }
 
+.index:hover { color: var(--fg); }
+
 .transmitting {
-  color: rgba(230,235,255,.6);
   display: flex;
   align-items: center;
   gap: 8px;
+  color: rgba(230,235,255,.6);
+  font-size: 11px;
+  letter-spacing: 2px;
 }
 
 .dot {
@@ -253,9 +280,7 @@ button {
   transition: color .3s ease;
 }
 
-button:hover {
-  color: var(--acid);
-}
+button:hover { color: var(--acid); }
 
 button svg {
   width: 19px;
@@ -282,33 +307,21 @@ button:focus-visible,
 }
 
 @media (max-width: 600px) {
-  .interface {
-    padding: 22px 19px;
-  }
+  .interface { padding: 22px 19px; }
 
-  .identity,
-  .transmitting {
+  .identity, .transmitting {
     font-size: 9px;
-    letter-spacing: 1.4px;
+    letter-spacing: 1.3px;
   }
 
-  .footer {
-    align-items: flex-end;
-  }
-
-  .track {
-    font-size: 9px;
-  }
-
-  .mist {
-    inset: -20%;
-  }
+  .identity { gap: 10px; }
+  .footer { align-items: flex-end; }
+  .track { font-size: 9px; }
+  .mist { inset: -20%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mist {
-    animation: none;
-  }
+  .mist { animation: none; }
 }
 </style>
 </head>
@@ -328,56 +341,53 @@ button:focus-visible,
 
 <main class="interface">
 
-  <header class="header">
-    <div class="identity">Yorkshire Modular Society</div>
-    <div class="transmitting">
-      <span class="dot"></span>
-      TRANSMITTING
-    </div>
-  </header>
+<header class="header">
+  <div class="identity">
+    <a class="index" href="/" aria-label="Return to index">← INDEX</a>
+    <span>Yorkshire Modular Society</span>
+  </div>
 
-  <footer class="footer">
+  <div class="transmitting">
+    <span class="dot"></span>
+    TRANSMITTING
+  </div>
+</header>
 
-    <div class="track">0205 / CONTINUOUS</div>
+<footer class="footer">
 
-    <div class="controls">
+  <div class="track">0205 / CONTINUOUS</div>
 
-      <button id="play" aria-label="Play">
-        <svg id="play-icon" viewBox="0 0 24 24"
-          fill="none" stroke="currentColor"
-          stroke-width="1.6" stroke-linecap="round">
-          <path d="M8 5v14l11-7z"/>
-        </svg>
-      </button>
+  <div class="controls">
 
-      <button id="mute" aria-label="Mute">
-        <svg viewBox="0 0 24 24"
-          fill="none" stroke="currentColor"
-          stroke-width="1.6" stroke-linecap="round"
-          stroke-linejoin="round">
-          <path d="M11 5 6 9H3v6h3l5 4z"/>
-          <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
-          <path d="M19 5a10 10 0 0 1 0 14"/>
-        </svg>
-      </button>
+    <button id="play" aria-label="Play">
+      <svg id="play-icon" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor"
+        stroke-width="1.6" stroke-linecap="round">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
 
-      <input
-        class="volume"
-        id="volume"
-        type="range"
-        min="0"
-        max="1"
-        step=".01"
-        value=".7"
-        aria-label="Volume"
-      >
+    <button id="mute" aria-label="Mute">
+      <svg viewBox="0 0 24 24"
+        fill="none" stroke="currentColor"
+        stroke-width="1.6" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M11 5 6 9H3v6h3l5 4z"/>
+        <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+        <path d="M19 5a10 10 0 0 1 0 14"/>
+      </svg>
+    </button>
 
-    </div>
-  </footer>
+    <input class="volume" id="volume"
+      type="range" min="0" max="1"
+      step=".01" value=".7" aria-label="Volume">
+
+  </div>
+</footer>
 
 </main>
 
-<audio id="audio" src="/audio/0205.mp3"
+<audio id="audio" src="audio/0205.mp3"
   preload="metadata" loop></audio>
 
 <script>
@@ -405,7 +415,7 @@ play.addEventListener('click', async () => {
     try {
       await audio.play();
     } catch (error) {
-      console.error(error);
+      console.error('Audio playback failed:', error);
     }
   } else {
     audio.pause();
@@ -424,7 +434,6 @@ mute.addEventListener('click', () => {
   audio.muted = !audio.muted;
   mute.style.opacity = audio.muted ? '.35' : '1';
 });
-
 </script>
 
 </body>
