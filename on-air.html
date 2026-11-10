@@ -1,347 +1,251 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YMS / ON AIR</title>
-
+<meta name="theme-color" content="#080b08">
+<title>YMS / ON AIR — 0205</title>
 <style>
+:root {
+  --acid: #a5d83c;
+  --muted: #78836f;
+  --line: rgba(165,216,60,.22);
+}
 * { box-sizing: border-box; }
-
+html, body { margin:0; width:100%; min-height:100%; background:#080b08; }
 body {
-  margin: 0;
-  min-height: 100vh;
-  background: #080b08;
-  color: #a5d83c;
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px;
+  min-height:100svh; overflow:hidden; color:var(--acid);
+  font-family:Arial,Helvetica,sans-serif;
 }
-
-.container {
-  width: 100%;
-  max-width: 1050px;
+#mist {
+  position:fixed; inset:0; width:100%; height:100%;
+  display:block; z-index:0;
 }
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #35402d;
+.grain {
+  position:fixed; inset:-50%; z-index:1; pointer-events:none;
+  opacity:.13;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+  animation: grain 1.7s steps(2) infinite;
 }
-
-h1 {
-  font-size: clamp(32px, 6vw, 58px);
-  letter-spacing: -3px;
-  margin: 0;
+@keyframes grain {
+  0% { transform:translate(0,0); }
+  25% { transform:translate(2%,-1%); }
+  50% { transform:translate(-1%,2%); }
+  75% { transform:translate(1%,1%); }
+  100% { transform:translate(-2%,-1%); }
 }
-
+.shade {
+  position:fixed; inset:0; z-index:2; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 48%, transparent 10%, rgba(0,0,0,.2) 65%, #050705 120%);
+}
+.interface {
+  position:relative; z-index:3; min-height:100svh;
+  display:flex; flex-direction:column; padding:clamp(20px,4vw,52px);
+}
+header, footer {
+  display:flex; align-items:center; justify-content:space-between; gap:20px;
+}
+header { padding-bottom:20px; border-bottom:1px solid var(--line); }
+.brand {
+  margin:0; font-size:clamp(29px,5vw,54px); line-height:1;
+  letter-spacing:-.075em; font-weight:700;
+}
+.status, .eyebrow, footer, .track-meta {
+  font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+}
 .status {
-  font-size: 10px;
-  letter-spacing: 2px;
-  border: 1px solid #536c2d;
-  padding: 10px 13px;
+  border:1px solid var(--line); padding:10px 13px; white-space:nowrap;
 }
-
-.dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  background: #a5d83c;
-  border-radius: 50%;
-  margin-right: 7px;
+.status-dot {
+  display:inline-block; width:7px; height:7px; border-radius:50%;
+  background:var(--acid); margin-right:8px;
+  box-shadow:0 0 12px rgba(165,216,60,.65);
 }
-
-main { padding-top: 35px; }
-
-.label {
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: #78836f;
-  margin-bottom: 12px;
+main {
+  flex:1; display:flex; flex-direction:column;
+  justify-content:flex-end; padding:30px 0 5vh;
 }
-
-.visual {
-  position: relative;
-  width: 100%;
-  height: clamp(280px, 48vw, 470px);
-  background: #050805;
-  border: 1px solid #263122;
-  overflow: hidden;
+.eyebrow { color:var(--muted); margin-bottom:13px; }
+.track-title {
+  margin:0; font-size:clamp(36px,8vw,86px); line-height:.95;
+  letter-spacing:-.075em; font-weight:600;
+  text-shadow:0 0 35px rgba(125,170,40,.12);
 }
-
-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 15%,
-    rgba(0,0,0,.5) 100%
-  );
-}
-
-.track {
-  padding: 28px 0;
-}
-
-.track h2 {
-  font-size: clamp(25px, 4vw, 38px);
-  letter-spacing: -1px;
-  margin: 0 0 9px;
-}
-
-.track p {
-  color: #78836f;
-  font-size: 11px;
-  letter-spacing: 2px;
-  margin: 0;
-}
-
+.track-meta { color:#a0aa96; margin-top:17px; }
 .controls {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  border-top: 1px solid #35402d;
-  border-bottom: 1px solid #35402d;
-  padding: 23px 0;
+  display:flex; align-items:center; gap:18px; margin-top:34px;
 }
-
 button {
-  background: none;
-  border: 1px solid #a5d83c;
-  color: #a5d83c;
-  padding: 13px 25px;
-  font-size: 11px;
-  letter-spacing: 2px;
-  cursor: pointer;
+  color:var(--acid); background:rgba(5,8,5,.45);
+  border:1px solid rgba(165,216,60,.65); border-radius:0;
+  padding:14px 20px; cursor:pointer; font:inherit;
+  font-size:10px; letter-spacing:.18em; text-transform:uppercase;
+  transition:background .2s,color .2s,border-color .2s;
 }
-
-button:hover {
-  background: #a5d83c;
-  color: #080b08;
-}
-
+button:hover { background:var(--acid); color:#080b08; }
+button:focus-visible, input:focus-visible { outline:2px solid white; outline-offset:4px; }
 .volume {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-left: auto;
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: #78836f;
+  display:flex; align-items:center; gap:12px;
+  color:var(--muted); font-size:9px; letter-spacing:.18em;
+  margin-left:auto;
 }
-
-input[type=range] {
-  width: 100px;
-  accent-color: #a5d83c;
-}
-
+input[type=range] { width:110px; accent-color:var(--acid); }
 footer {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 20px;
-  color: #59634f;
-  font-size: 9px;
-  letter-spacing: 2px;
+  color:#78836f; border-top:1px solid var(--line); padding-top:17px;
+  font-size:9px;
 }
-
-@media(max-width:550px) {
-  body { padding: 18px; }
-  header { gap: 10px; }
-  .status { font-size: 8px; }
-  .controls { gap: 12px; flex-wrap: wrap; }
-  .volume { margin-left: 0; width: 100%; }
-  input[type=range] { flex: 1; }
+@media(max-width:560px) {
+  .interface { padding:20px; }
+  .status { font-size:8px; padding:8px; }
+  .controls { flex-wrap:wrap; gap:12px; }
+  .volume { width:100%; margin:8px 0 0; }
+  input[type=range] { flex:1; }
+  footer { font-size:8px; }
 }
 </style>
 </head>
-
 <body>
-<div class="container">
+<canvas id="mist" aria-hidden="true"></canvas>
+<div class="grain"></div><div class="shade"></div>
 
-<header>
-  <h1>YMS / ON AIR</h1>
-  <div class="status">
-    <span class="dot"></span>TRANSMITTING
-  </div>
-</header>
+<div class="interface">
+  <header>
+    <h1 class="brand">YMS / ON AIR</h1>
+    <div class="status"><span class="status-dot"></span>TRANSMISSION 001</div>
+  </header>
 
-<main>
-  <div class="label">YORKSHIRE MODULAR SOCIETY / TRANSMISSION 001</div>
+  <main>
+    <div class="eyebrow">YORKSHIRE MODULAR SOCIETY</div>
+    <h2 class="track-title">0205</h2>
+    <div class="track-meta">ONE RECORDING / CONTINUOUS PLAYBACK</div>
 
-  <div class="visual">
-    <canvas id="visualiser"></canvas>
-    <div class="overlay"></div>
-  </div>
-
-  <div class="track">
-    <h2>AN INTRODUCTION</h2>
-    <p>YMS / SELECTED RECORDING / CONTINUOUS PLAYBACK</p>
-  </div>
-
-  <div class="controls">
-    <button id="play">START TRANSMISSION</button>
-
-    <div class="volume">
-      <span>VOLUME</span>
-      <input id="volume" type="range"
-        min="0" max="1" step="0.01" value="0.7">
+    <div class="controls">
+      <button id="play" type="button">Start transmission</button>
+      <div class="volume">
+        <label for="volume">VOLUME</label>
+        <input id="volume" type="range" min="0" max="1" step=".01" value=".7">
+      </div>
     </div>
-  </div>
-</main>
+  </main>
 
-<footer>
-  <span>YMS TRANSMISSION SYSTEM</span>
-  <span>BRADFORD / ENGLAND</span>
-</footer>
-
+  <footer>
+    <span>YMS TRANSMISSION SYSTEM</span>
+    <span>BRADFORD / ENGLAND</span>
+  </footer>
 </div>
 
-<audio id="audio" src="audio/on-air.mp3"
-  loop preload="auto"></audio>
+<audio id="audio" src="audio/0205.mp3" preload="metadata" loop></audio>
 
 <script>
-const audio = document.getElementById("audio");
-const button = document.getElementById("play");
-const canvas = document.getElementById("visualiser");
-const ctx = canvas.getContext("2d");
+const audio = document.getElementById('audio');
+const playButton = document.getElementById('play');
+const volume = document.getElementById('volume');
+let audioContext, analyser, source, bins;
+audio.volume = Number(volume.value);
 
-let audioContext, analyser, source, data;
-let playing = false;
-
-function setupAudio() {
+function prepareAudio() {
   if (audioContext) return;
-
-  audioContext = new AudioContext();
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContextClass) return;
+  audioContext = new AudioContextClass();
   analyser = audioContext.createAnalyser();
-  analyser.fftSize = 2048;
-  analyser.smoothingTimeConstant = 0.88;
-
+  analyser.fftSize = 256;
+  analyser.smoothingTimeConstant = .96;
   source = audioContext.createMediaElementSource(audio);
   source.connect(analyser);
   analyser.connect(audioContext.destination);
-
-  data = new Uint8Array(analyser.frequencyBinCount);
+  bins = new Uint8Array(analyser.frequencyBinCount);
 }
 
-button.addEventListener("click", async () => {
-  setupAudio();
-
-  if (audioContext.state === "suspended") {
-    await audioContext.resume();
-  }
-
-  if (!playing) {
-    try {
+playButton.addEventListener('click', async () => {
+  try {
+    prepareAudio();
+    if (audioContext && audioContext.state === 'suspended') await audioContext.resume();
+    if (audio.paused) {
       await audio.play();
-      playing = true;
-      button.textContent = "PAUSE TRANSMISSION";
-    } catch (error) {
-      button.textContent = "PLAYBACK ERROR";
+      playButton.textContent = 'Pause transmission';
+    } else {
+      audio.pause();
+      playButton.textContent = 'Resume transmission';
     }
-  } else {
-    audio.pause();
-    playing = false;
-    button.textContent = "RESUME TRANSMISSION";
+  } catch (err) {
+    playButton.textContent = 'Playback unavailable — retry';
+    console.error(err);
   }
 });
-
-document.getElementById("volume").addEventListener("input", e => {
-  audio.volume = Number(e.target.value);
+audio.addEventListener('pause', () => {
+  if (audio.ended) return;
+  if (playButton.textContent === 'Pause transmission') playButton.textContent = 'Resume transmission';
 });
+audio.addEventListener('play', () => playButton.textContent = 'Pause transmission');
+volume.addEventListener('input', () => audio.volume = Number(volume.value));
 
-audio.volume = 0.7;
-
+/* Slow, layered mist: organic drifting fields, not an equaliser. */
+const canvas = document.getElementById('mist');
+const ctx = canvas.getContext('2d');
+let W=0,H=0,D=1,t=0;
 function resize() {
-  const rect = canvas.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
+  D = Math.min(window.devicePixelRatio || 1, 2);
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = Math.floor(W*D); canvas.height = Math.floor(H*D);
+  canvas.style.width = W+'px'; canvas.style.height = H+'px';
+  ctx.setTransform(D,0,0,D,0,0);
 }
+window.addEventListener('resize', resize); resize();
 
-window.addEventListener("resize", resize);
-resize();
+function blob(x,y,rx,ry,rotation,alpha) {
+  ctx.save();
+  ctx.translate(x,y); ctx.rotate(rotation);
+  ctx.scale(1, ry/rx);
+  const g=ctx.createRadialGradient(0,0,rx*.04,0,0,rx);
+  g.addColorStop(0,`rgba(116,157,48,${alpha})`);
+  g.addColorStop(.38,`rgba(69,103,35,${alpha*.62})`);
+  g.addColorStop(1,'rgba(25,43,22,0)');
+  ctx.fillStyle=g;
+  ctx.beginPath(); ctx.arc(0,0,rx,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+function render() {
+  requestAnimationFrame(render);
+  t += .0018;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#080b08'; ctx.fillRect(0,0,W,H);
 
-let time = 0;
-
-function draw() {
-  requestAnimationFrame(draw);
-
-  const w = canvas.width;
-  const h = canvas.height;
-
-  ctx.fillStyle = "#050805";
-  ctx.fillRect(0, 0, w, h);
-
-  if (analyser && playing) {
-    analyser.getByteFrequencyData(data);
+  let response=0;
+  if (analyser && !audio.paused) {
+    analyser.getByteFrequencyData(bins);
+    for(let i=0;i<bins.length;i++) response += bins[i];
+    response = response/(bins.length*255);
   }
+  const breathe = 1 + response*.16;
 
-  const bass = analyser && playing
-    ? data.slice(0, 35).reduce((a,b) => a+b,0) / 35 / 255
-    : 0.04;
+  ctx.globalCompositeOperation='screen';
+  blob(W*(.24+.10*Math.sin(t*.7)), H*(.43+.10*Math.cos(t*.55)),
+       Math.max(W,H)*.42*breathe, Math.max(W,H)*.22, -.25, .105);
+  blob(W*(.77+.09*Math.cos(t*.48)), H*(.59+.12*Math.sin(t*.62)),
+       Math.max(W,H)*.38*breathe, Math.max(W,H)*.20, .35, .09);
+  blob(W*(.52+.13*Math.sin(t*.31)), H*(.18+.08*Math.cos(t*.4)),
+       Math.max(W,H)*.34, Math.max(W,H)*.17, .12, .065);
+  blob(W*(.43+.08*Math.cos(t*.24)), H*(.82+.05*Math.sin(t*.36)),
+       Math.max(W,H)*.30, Math.max(W,H)*.16, -.4, .055);
 
-  const mid = analyser && playing
-    ? data.slice(35, 120).reduce((a,b) => a+b,0) / 85 / 255
-    : 0.02;
-
-  time += 0.004 + bass * 0.008;
-
-  const cx = w / 2;
-  const cy = h / 2;
-
-  for (let layer = 0; layer < 9; layer++) {
+  /* Fine drifting translucent filaments add surface and depth. */
+  for(let j=0;j<7;j++) {
     ctx.beginPath();
-
-    const radius = Math.min(w,h) *
-      (0.08 + layer * 0.045 + bass * 0.06);
-
-    for (let i = 0; i <= 360; i++) {
-      const angle = i * Math.PI / 180;
-
-      const distortion =
-        Math.sin(angle * 3 + time + layer) * 0.12 +
-        Math.sin(angle * 7 - time * 0.7) * 0.045 +
-        Math.sin(angle * 2 + time * 0.3) * mid * 0.3;
-
-      const r = radius * (1 + distortion);
-
-      const x = cx + Math.cos(angle) * r;
-      const y = cy + Math.sin(angle) * r * 0.7;
-
-      if (i === 0) ctx.moveTo(x,y);
-      else ctx.lineTo(x,y);
+    for(let i=0;i<=90;i++) {
+      const x=(i/90)*W;
+      const y=H*(.22+j*.095)
+        + Math.sin(i*.055+t*(.7+j*.035)+j)*H*.045
+        + Math.sin(i*.018-t*.45+j*1.7)*H*.035;
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
     }
-
-    ctx.closePath();
-    ctx.strokeStyle = `rgba(165,216,60,${0.035 + layer * 0.009})`;
-    ctx.lineWidth = 1.3 * (window.devicePixelRatio || 1);
+    ctx.strokeStyle=`rgba(143,181,77,${.018 + response*.012})`;
+    ctx.lineWidth=1.2;
     ctx.stroke();
   }
-
-  const glow = ctx.createRadialGradient(
-    cx, cy, 0, cx, cy, Math.min(w,h)*0.48
-  );
-
-  glow.addColorStop(0, `rgba(120,180,35,${0.035+bass*0.08})`);
-  glow.addColorStop(1, "rgba(0,0,0,0)");
-
-  ctx.fillStyle = glow;
-  ctx.fillRect(0,0,w,h);
+  ctx.globalCompositeOperation='source-over';
 }
-
-draw();
+render();
 </script>
 </body>
 </html>
