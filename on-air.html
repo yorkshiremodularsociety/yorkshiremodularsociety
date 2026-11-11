@@ -262,10 +262,20 @@ button svg {
   transition: width .25s ease, opacity .25s ease;
 }
 
-.controls:hover .volume,
-.controls:focus-within .volume {
-  width: 75px;
-  opacity: .7;
+@media (min-width: 601px) {
+  .volume {
+    width: 75px;
+    opacity: .7;
+    transition: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .controls:hover .volume,
+  .controls:focus-within .volume {
+    width: 75px;
+    opacity: .7;
+  }
 }
 
 button:focus-visible,
