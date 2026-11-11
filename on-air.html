@@ -439,39 +439,116 @@ button:focus-visible,
 
 </main>
 
-<audio id="audio" src="audio/0205.mp3"
-  preload="none" loop></audio>
+<audio id="audio" preload="none"></audio>
 
 <script>
+
 const audio = document.getElementById('audio');
 const play = document.getElementById('play');
 const playIcon = document.getElementById('play-icon');
 const mute = document.getElementById('mute');
 const volume = document.getElementById('volume');
+const track = document.querySelector('.track');
+
+const repository =
+  'https://api.github.com/repos/yorkshiremodularsociety/yorkshiremodularsociety/contents/audio';
+
+let playlist = [];
+let currentTrackIndex = -1;
+let playlistReady = false;
 
 audio.volume = 0.7;
 
 function updatePlay() {
   const playing = !audio.paused;
 
-  play.setAttribute('aria-label',
-    playing ? 'Pause' : 'Play');
+  play.setAttribute('aria-label', playing ? 'Pause' : 'Play');
 
   playIcon.innerHTML = playing
     ? '<path d="M7 5h4v14H7zM15 5h4v14h-4z"/>'
     : '<path d="M8 5v14l11-7z"/>';
 }
 
+function updateTrackDisplay() {
+  const filename = playlist[currentTrackIndex].name;
+  const releaseNumber = filename.replace(/\.mp3$/i, '');
+
+  track.textContent = releaseNumber + ' / CONTINUOUS';
+}
+
+async function loadPlaylist() {
+  try {
+    const response = await fetch(repository);
+
+    if (!response.ok) {
+      throw new Error('Could not access audio folder');
+    }
+
+    const files = await response.json();
+
+    playlist = files
+      .filter(file =>
+        file.type === 'file' &&
+        /\.mp3$/i.test(file.name)
+      )
+      .sort((a, b) =>
+        a.name.localeCompare(b.name, undefined, {
+          numeric: true,
+          sensitivity: 'base'
+        })
+      );
+
+    if (playlist.length === 0) {
+      throw new Error('No MP3 files found');
+    }
+
+    playlistReady = true;
+    play.disabled = false;
+
+    console.log('YMS playlist loaded:', playlist.map(file => file.name));
+
+  } catch (error) {
+    track.textContent = 'OFFLINE / CONTINUOUS';
+    console.error('Playlist error:', error);
+  }
+}
+
+async function playTrack(index) {
+  currentTrackIndex = index;
+
+  const selectedTrack = playlist[currentTrackIndex];
+
+  audio.src = selectedTrack.download_url;
+  updateTrackDisplay();
+
+  try {
+    await audio.play();
+  } catch (error) {
+    console.error('Playback failed:', error);
+  }
+}
+
 play.addEventListener('click', async () => {
+  if (!playlistReady) return;
+
   if (audio.paused) {
-    try {
-      await audio.play();
-    } catch (error) {
-      console.error('Audio playback failed:', error);
+    if (currentTrackIndex === -1) {
+      await playTrack(0);
+    } else {
+      try {
+        await audio.play();
+      } catch (error) {
+        console.error('Playback failed:', error);
+      }
     }
   } else {
     audio.pause();
   }
+});
+
+audio.addEventListener('ended', () => {
+  const nextIndex = (currentTrackIndex + 1) % playlist.length;
+  playTrack(nextIndex);
 });
 
 audio.addEventListener('play', updatePlay);
@@ -486,6 +563,11 @@ mute.addEventListener('click', () => {
   audio.muted = !audio.muted;
   mute.style.opacity = audio.muted ? '.35' : '1';
 });
+
+// Discover the playlist without downloading any audio.
+play.disabled = true;
+track.textContent = 'CONNECTING / CONTINUOUS';
+loadPlaylist();
 
   // iOS background audio session
 if ('audioSession' in navigator) {
