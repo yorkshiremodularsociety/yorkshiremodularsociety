@@ -393,7 +393,17 @@ function updateTrackDisplay() {
   const filename = playlist[currentTrackIndex].name;
   const releaseNumber = filename.replace(/\.mp3$/i, '');
 
-  track.textContent = releaseNumber + ' / CONTINUOUS';
+  const title = releaseNumber + ' / CONTINUOUS';
+
+  track.textContent = title;
+
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: title,
+      artist: 'Yorkshire Modular Society',
+      album: 'YMS Vault'
+    });
+  }
 }
 
 async function loadPlaylist() {
