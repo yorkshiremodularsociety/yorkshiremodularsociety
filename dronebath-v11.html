@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080b13">
+<title>DRONEBATH — Yorkshire Modular Society</title>
+<style>
+:root{--bg:#080b13;--panel:rgba(15,21,34,.78);--line:rgba(160,185,220,.15);--text:rgba(232,239,250,.9);--muted:rgba(180,195,218,.55);--acid:#b6ff36;--cyan:#78d8df}
+*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(ellipse at 18% 12%,rgba(48,74,119,.25),transparent 44%),radial-gradient(ellipse at 82% 72%,rgba(66,48,113,.18),transparent 48%),linear-gradient(145deg,#080b13,#0b1120 55%,#080b13);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;letter-spacing:.035em;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E")}
+.ambient{position:fixed;width:65vw;height:65vw;max-width:900px;max-height:900px;border-radius:50%;filter:blur(100px);opacity:.12;background:#4267a2;top:12%;left:15%;pointer-events:none;animation:drift 38s ease-in-out infinite alternate}.ambient.two{background:#58438e;top:42%;left:58%;animation-duration:53s}@keyframes drift{to{transform:translate(12vw,-8vh) scale(1.18)}}
+main{position:relative;z-index:1;width:min(1180px,100%);margin:auto;padding:34px 28px 26px}header{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:0 2px 27px;border-bottom:1px solid var(--line)}.brand,.status{font-size:9px;letter-spacing:.19em;color:var(--muted)}.brand strong{color:var(--text);font-weight:500}.status{display:flex;align-items:center;gap:9px}.dot{width:6px;height:6px;border-radius:50%;background:var(--muted)}body.running .dot{background:var(--acid);box-shadow:0 0 12px #b6ff3680}
+.intro{padding:34px 2px 25px;display:flex;justify-content:space-between;align-items:end;gap:24px}h1{margin:0;font-size:clamp(32px,6vw,58px);line-height:.95;letter-spacing:.13em;font-weight:400}.subtitle{margin-top:13px;color:var(--muted);font-size:9px;letter-spacing:.2em}.intro-note{max-width:245px;text-align:right;color:var(--muted);font-size:9px;line-height:1.8}
+.transport{display:flex;align-items:center;gap:16px;padding:14px 16px;margin-bottom:18px;background:rgba(11,17,29,.68);border:1px solid var(--line)}button{font:inherit;cursor:pointer}.start{border:1px solid #b6ff3680;color:var(--acid);background:#b6ff3612;padding:12px 22px;min-width:112px;font-size:10px;letter-spacing:.18em}.start:hover{background:#b6ff3625}.start:disabled{opacity:.55;cursor:wait}.transport-copy{color:var(--muted);font-size:9px;line-height:1.7}.transport-copy span{color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:13px}.module{grid-column:span 6;min-width:0;padding:18px;background:var(--panel);border:1px solid var(--line);backdrop-filter:blur(14px)}.module.wide{grid-column:span 12}.module.third{grid-column:span 4}.module-head{display:flex;justify-content:space-between;gap:12px;padding-bottom:14px;margin-bottom:15px;border-bottom:1px solid var(--line)}.module-title{font-size:10px;letter-spacing:.2em}.module-index{color:var(--muted);font-size:9px}.osc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.osc{padding:12px;background:#05091059;border:1px solid #a0b9dc1a;min-width:0;transition:border-color .2s,background .2s}.osc.active{border-color:#b6ff3660;background:#b6ff3608}.osc-name{font-size:9px;letter-spacing:.17em;color:var(--cyan);margin-bottom:10px}.power{width:100%;padding:10px 7px;margin-bottom:9px;background:#111a28;border:1px solid var(--line);color:var(--muted);font-size:9px;letter-spacing:.12em}.power.on{border-color:#b6ff3680;background:#b6ff3614;color:var(--acid)}.control{min-width:0;margin:11px 0}.control-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:7px}.control label{font-size:8px;letter-spacing:.12em;color:var(--muted)}.value{font-size:9px;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}input[type=range]{width:100%;height:18px;margin:0;accent-color:var(--acid);cursor:pointer}select{width:100%;color:var(--text);background:#050910a6;border:1px solid var(--line);border-radius:0;padding:8px 7px;font:inherit;font-size:9px;letter-spacing:.08em}select:focus,input:focus-visible,button:focus-visible{outline:1px solid var(--acid);outline-offset:3px}.hint{font-size:8px;color:var(--muted);line-height:1.7;margin-top:5px}.filter-line{display:grid;grid-template-columns:1fr 1fr;gap:18px}.meter{flex:1;height:4px;background:#a0b9dc1f;overflow:hidden}.meter-fill{height:100%;width:0;background:var(--acid);box-shadow:0 0 12px #b6ff36b3}.output-row{display:flex;align-items:center;gap:18px}.footer{display:flex;justify-content:space-between;gap:20px;padding:22px 2px 0;color:var(--muted);font-size:8px;letter-spacing:.14em}
+@media(max-width:760px){main{padding:22px 16px 20px}.intro{padding:28px 2px 20px}.intro-note{max-width:145px;font-size:8px}.module{grid-column:span 12;padding:15px 14px}.module.third{grid-column:span 6}.osc-grid{grid-template-columns:repeat(2,1fr)}.osc{padding:11px 12px}}
+@media(max-width:420px){.brand,.status{font-size:8px}.intro-note{display:none}h1{font-size:37px}.module.third{grid-column:span 12}.transport{gap:12px;padding:12px}.transport-copy{font-size:8px}.footer{font-size:7px}}
+
+/* DRONEBATH visual pass — sound engine and controls remain untouched */
+:root{
+ --bg:#05070d;--panel:rgba(11,16,28,.76);--line:rgba(154,183,220,.16);
+ --text:#e9f0fa;--muted:rgba(190,205,226,.53);--acid:#c4ff38;--cyan:#78dce8;
+ --violet:#8d7cff;
+}
+html{background:#05070d}
+body{
+ background:
+  radial-gradient(ellipse at 12% 8%,rgba(38,88,139,.28),transparent 42%),
+  radial-gradient(ellipse at 86% 24%,rgba(91,53,148,.22),transparent 40%),
+  radial-gradient(ellipse at 52% 100%,rgba(19,76,88,.18),transparent 48%),
+  linear-gradient(145deg,#05070d 0%,#09111e 48%,#060811 100%);
+ color:var(--text);
+}
+body:after{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.16;
+ background-image:linear-gradient(rgba(126,161,204,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(126,161,204,.045) 1px,transparent 1px);
+ background-size:64px 64px;
+ mask-image:linear-gradient(to bottom,black,transparent 88%);
+}
+body:before{z-index:0;opacity:.09}
+.ambient{
+ width:72vw;height:72vw;max-width:1100px;max-height:1100px;filter:blur(115px);
+ opacity:.18;background:#315c9d;top:0;left:5%;animation:drift 48s ease-in-out infinite alternate;
+}
+.ambient.two{background:#5b3d9d;top:34%;left:56%;opacity:.15;animation-duration:62s}
+main{width:min(1280px,100%);padding:30px 30px 28px}
+header{padding:0 2px 12px;border-color:rgba(160,190,225,.2)}
+.brand,.status{font-size:9px;letter-spacing:.22em}
+.brand strong{color:#f4f7fc;letter-spacing:.24em}
+.status{padding:8px 11px;border:1px solid rgba(160,190,225,.16);background:rgba(5,9,17,.5)}
+.dot{width:7px;height:7px;background:#526178;box-shadow:0 0 0 3px rgba(140,160,190,.08)}
+body.running .dot{background:var(--acid);box-shadow:0 0 8px var(--acid),0 0 0 4px rgba(196,255,56,.1)}
+.intro{position:relative;padding:38px 4px 24px;align-items:end}
+.intro:after{
+ content:"";position:absolute;right:8%;top:15%;width:220px;height:130px;pointer-events:none;
+ background:radial-gradient(ellipse,rgba(94,164,208,.18),rgba(93,110,189,.08) 38%,transparent 72%);
+ filter:blur(18px);transform:rotate(-18deg);
+}
+h1{
+ font-size:clamp(46px,8vw,88px);font-weight:300;letter-spacing:.16em;
+ line-height:.82;text-shadow:0 0 38px rgba(104,165,220,.16);
+}
+.subtitle{margin-top:18px;font-size:9px;letter-spacing:.28em;color:#8da2bd}
+.intro-note{position:relative;z-index:1;max-width:260px;font-size:10px;letter-spacing:.08em;line-height:2;color:#a6b6cb}
+.transport{
+ min-height:42px;margin-bottom:16px;padding:10px 15px;
+ background:linear-gradient(100deg,rgba(16,28,43,.82),rgba(11,16,29,.58));
+ border:1px solid rgba(130,171,210,.2);border-left:2px solid var(--acid);
+ box-shadow:0 10px 40px rgba(0,0,0,.12);
+}
+.transport-copy{font-size:9px;letter-spacing:.09em}
+.transport-copy span{color:var(--acid);letter-spacing:.17em}
+.grid{gap:14px}
+.module{
+ position:relative;overflow:hidden;padding:21px;
+ background:linear-gradient(145deg,rgba(17,26,43,.84),rgba(7,12,22,.82));
+ border:1px solid rgba(145,174,211,.17);
+ box-shadow:0 14px 40px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.025);
+ backdrop-filter:blur(18px);
+}
+.module:before{
+ content:"";position:absolute;inset:0 0 auto;height:1px;
+ background:linear-gradient(90deg,transparent,rgba(131,185,225,.28),transparent);
+ pointer-events:none;
+}
+.module-head{position:relative;padding-bottom:16px;margin-bottom:17px;border-color:rgba(145,174,211,.15)}
+.module-title{font-size:10px;letter-spacing:.24em;color:#eaf1fa}
+.module-index{font-size:8px;letter-spacing:.17em;color:#7488a4}
+.osc-grid{gap:12px}
+.osc{
+ position:relative;overflow:hidden;padding:15px 13px 13px;
+ background:linear-gradient(160deg,rgba(7,13,23,.88),rgba(10,17,29,.72));
+ border:1px solid rgba(145,174,211,.15);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+ transition:border-color .25s,background .25s,transform .25s,box-shadow .25s;
+}
+.osc:after{
+ content:"0" attr(data-index);position:absolute;right:7px;top:4px;z-index:0;
+ font-size:48px;line-height:1;font-weight:200;letter-spacing:-.08em;
+ color:rgba(127,163,205,.055);pointer-events:none;
+}
+.osc>*{position:relative;z-index:1}
+.osc.active{
+ border-color:rgba(196,255,56,.55);
+ background:linear-gradient(155deg,rgba(24,39,35,.88),rgba(9,18,27,.88));
+ box-shadow:inset 0 0 28px rgba(196,255,56,.045),0 0 22px rgba(196,255,56,.045);
+}
+.osc-name{font-size:9px;letter-spacing:.22em;color:var(--cyan);margin-bottom:13px}
+.power{
+ padding:11px 8px;margin-bottom:13px;
+ background:rgba(24,36,54,.72);border:1px solid rgba(147,177,212,.2);
+ color:#aabbd0;font-size:8px;letter-spacing:.2em;
+ transition:all .2s;
+}
+.power:hover{border-color:rgba(196,255,56,.45);color:var(--acid);background:rgba(196,255,56,.06)}
+.power.on,.osc.active .power{
+ border-color:rgba(196,255,56,.58);background:rgba(196,255,56,.1);color:var(--acid);
+ box-shadow:0 0 18px rgba(196,255,56,.07);
+}
+.control{margin:14px 0}
+.control-top{margin-bottom:8px}
+.control label{font-size:8px;letter-spacing:.17em;color:#8396b0}
+.value{font-size:9px;color:#dce7f5;letter-spacing:.04em}
+input[type=range]{
+ appearance:none;-webkit-appearance:none;width:100%;height:20px;background:transparent;
+ accent-color:var(--acid);cursor:pointer;touch-action:pan-y;
+}
+input[type=range]::-webkit-slider-runnable-track{
+ height:3px;border-radius:4px;
+ background:linear-gradient(90deg,rgba(105,135,171,.56),rgba(105,135,171,.2));
+}
+input[type=range]::-moz-range-track{height:3px;border-radius:4px;background:rgba(105,135,171,.4)}
+input[type=range]::-webkit-slider-thumb{
+ -webkit-appearance:none;width:13px;height:13px;border-radius:50%;margin-top:-5px;
+ background:var(--acid);border:2px solid #10191c;box-shadow:0 0 0 2px rgba(196,255,56,.22),0 0 13px rgba(196,255,56,.55);
+}
+input[type=range]::-moz-range-thumb{
+ width:10px;height:10px;border-radius:50%;background:var(--acid);border:2px solid #10191c;
+ box-shadow:0 0 0 2px rgba(196,255,56,.22),0 0 13px rgba(196,255,56,.55);
+}
+select{
+ padding:10px 9px;border:1px solid rgba(145,174,211,.2);background:rgba(4,9,17,.88);
+ color:#e5edf8;font-size:9px;letter-spacing:.13em;min-height:38px;
+}
+select:focus,input:focus-visible,button:focus-visible{outline:1px solid var(--acid);outline-offset:3px}
+.hint{font-size:8px;letter-spacing:.04em;color:#788ba5;line-height:1.85;margin-top:7px}
+.grid>.module:nth-child(3){
+ background:linear-gradient(145deg,rgba(25,24,48,.88),rgba(9,13,25,.88));
+ border-color:rgba(142,126,255,.23);
+}
+.grid>.module:nth-child(3) .module-title{color:#d7d0ff}
+.grid>.module:nth-child(3) .module-head:after{
+ content:"";width:6px;height:6px;margin-left:auto;align-self:center;border-radius:50%;
+ background:#9c8cff;box-shadow:0 0 12px #8d7cff;
+}
+.filter-line{gap:26px}
+.output-row{min-height:44px}
+.meter{height:5px;background:rgba(128,158,194,.15);border:1px solid rgba(128,158,194,.08)}
+.meter-fill{background:linear-gradient(90deg,#72cbd5,var(--acid));box-shadow:0 0 14px rgba(196,255,56,.42)}
+.footer{padding-top:24px;font-size:8px;letter-spacing:.2em;color:#62738d}
+@media(max-width:760px){
+ main{padding:22px 16px 20px}
+ .intro{padding:38px 2px 28px}
+ .module{padding:17px 15px}
+ .osc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .osc{padding:13px 11px}
+}
+@media(max-width:420px){
+ main{padding:17px 12px 18px}
+ header{padding-bottom:15px}
+ .brand,.status{font-size:7px;letter-spacing:.14em}
+ .intro{padding:34px 2px 25px}
+ h1{font-size:39px;letter-spacing:.13em}
+ .subtitle{font-size:7px;letter-spacing:.19em}
+ .module{padding:15px 12px}
+ .module-index{display:none}
+ .osc{padding:12px 9px}
+ .power{font-size:7px;padding:10px 5px}
+ .filter-line{grid-template-columns:1fr;gap:8px}
+ .footer{font-size:6px;letter-spacing:.12em}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition:none!important}
+}
+
+
+/* YMS atmosphere — slow colour drift and geological surface, shared with the main site */
+:root{--bg:#04050a;--panel:rgba(9,13,23,.56);--line:rgba(160,178,210,.10);--text:#e6ebff;--muted:rgba(174,186,211,.62);--acid:#c4ff38;--cyan:#9bced8;--violet:#9b8bd8}
+html{background:#04050a}
+body{position:relative;isolation:isolate;min-height:100vh;overflow-x:hidden;background:linear-gradient(180deg,#04050a,#060811);font-family:Inter,system-ui,sans-serif;letter-spacing:.025em}
+body:after{display:none}
+.mist,.mist2,.texture,.grain{position:fixed;pointer-events:none}
+.mist{inset:-40%;z-index:0;background:radial-gradient(700px 500px at 20% 30%,rgba(110,150,255,.10),transparent 60%),radial-gradient(800px 600px at 70% 40%,rgba(150,100,255,.08),transparent 62%),radial-gradient(900px 650px at 45% 75%,rgba(120,200,255,.06),transparent 60%);filter:blur(18px);opacity:.8;animation:drift 28s ease-in-out infinite alternate,mist-colour 110s linear infinite}
+.mist2{inset:-45%;z-index:0;background:radial-gradient(900px 700px at 65% 25%,rgba(110,150,255,.07),transparent 60%),radial-gradient(850px 650px at 30% 55%,rgba(150,100,255,.06),transparent 62%);filter:blur(26px);opacity:.6;animation:drift2 36s ease-in-out infinite alternate,mist-colour-2 150s linear infinite}
+.texture{inset:-10%;z-index:0;opacity:.34;mix-blend-mode:soft-light;background-image:radial-gradient(ellipse at 22% 35%,rgba(115,150,55,.20),transparent 38%),radial-gradient(ellipse at 78% 68%,rgba(65,115,65,.18),transparent 42%),radial-gradient(ellipse at 50% 15%,rgba(100,80,45,.12),transparent 40%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.025' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");background-size:900px 700px,1100px 800px,1000px 700px,500px 500px;background-repeat:no-repeat,no-repeat,no-repeat,repeat}
+.grain{inset:0;z-index:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");opacity:.04;mix-blend-mode:overlay}
+@keyframes drift{0%{transform:translate3d(-2%,-1%,0) scale(1.02)}100%{transform:translate3d(2%,1%,0) scale(1.08)}}
+@keyframes drift2{0%{transform:translate3d(2%,1%,0) scale(1.04)}100%{transform:translate3d(-2%,-1%,0) scale(1.1)}}
+@keyframes mist-colour{0%{filter:blur(18px) hue-rotate(0deg)}25%{filter:blur(18px) hue-rotate(90deg)}50%{filter:blur(18px) hue-rotate(180deg)}75%{filter:blur(18px) hue-rotate(270deg)}100%{filter:blur(18px) hue-rotate(360deg)}}
+@keyframes mist-colour-2{0%{filter:blur(26px) hue-rotate(0deg)}25%{filter:blur(26px) hue-rotate(90deg)}50%{filter:blur(26px) hue-rotate(180deg)}75%{filter:blur(26px) hue-rotate(270deg)}100%{filter:blur(26px) hue-rotate(360deg)}}
+main{z-index:1;padding-top:clamp(26px,6vh,66px)}
+.intro{padding:22px 4px 30px}
+h1{font-family:Inter,system-ui,sans-serif;font-weight:400;letter-spacing:.13em;font-size:clamp(38px,7vw,72px);text-shadow:0 0 42px rgba(104,165,220,.13)}
+.grid{gap:18px}
+.module{border-radius:18px;padding:23px;background:linear-gradient(145deg,rgba(18,25,42,.54),rgba(7,11,20,.48));border:1px solid rgba(165,184,218,.10);box-shadow:0 18px 60px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.025);backdrop-filter:blur(22px)}
+.module:before{height:1px;opacity:.45;background:linear-gradient(90deg,transparent,rgba(160,190,225,.22),transparent)}
+.module-head{border:0;padding-bottom:5px;margin-bottom:17px}
+.module-title{font-size:9px;letter-spacing:.25em;color:rgba(222,231,247,.7)}
+.module-index{display:none}
+.osc-grid{gap:14px}
+.osc{border-radius:13px;padding:16px 14px 14px;background:linear-gradient(155deg,rgba(8,14,25,.64),rgba(12,17,29,.44));border:1px solid rgba(165,184,218,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.osc:after{display:none}
+.osc-name{font-family:Inter,system-ui,sans-serif;font-size:11px;letter-spacing:.22em;color:#b7c7d9;margin-bottom:13px}
+.osc.active{border-color:rgba(196,255,56,.42);background:linear-gradient(155deg,rgba(35,47,35,.58),rgba(9,18,27,.58));box-shadow:inset 0 0 34px rgba(196,255,56,.045),0 0 28px rgba(196,255,56,.045)}
+.osc.active .osc-name{color:var(--acid)}
+.power{border-radius:8px;background:rgba(20,29,43,.55);border-color:rgba(165,184,218,.12);font-family:Inter,system-ui,sans-serif}
+.power.on{background:rgba(196,255,56,.09);border-color:rgba(196,255,56,.48)}
+.control label{font-family:Inter,system-ui,sans-serif;letter-spacing:.13em}
+input[type=range]{accent-color:var(--acid)}
+select{border-radius:8px;background:rgba(5,9,17,.62);border-color:rgba(165,184,218,.12);font-family:Inter,system-ui,sans-serif}
+.hint{color:rgba(174,186,211,.5)}
+.grid>.module:nth-child(3){background:linear-gradient(145deg,rgba(30,25,48,.56),rgba(8,12,22,.5));border-color:rgba(155,139,216,.16)}
+.grid>.module:nth-child(3) .module-title{color:#d1c9f0}
+@media(max-width:760px){main{padding:18px 15px 24px}.intro{padding:18px 3px 24px}.module{padding:18px 15px}}
+@media(max-width:420px){main{padding:14px 11px 20px}.intro{padding:15px 3px 21px}h1{font-size:36px}.module{border-radius:15px;padding:15px 12px}.osc{border-radius:11px;padding:13px 10px}}
+@media(prefers-reduced-motion:reduce){.mist,.mist2{animation:none!important}}
+
+
+/* DRONEBATH cablework pass — decorative routing, controls remain unobstructed */
+:root{--violet:#a58cff;--purple:#542b91}
+body{
+ background:
+  radial-gradient(ellipse at 18% 18%,rgba(80,35,135,.22),transparent 43%),
+  radial-gradient(ellipse at 82% 76%,rgba(45,18,88,.2),transparent 48%),
+  linear-gradient(180deg,#04050a,#060611);
+}
+h1{
+ font-family:Inter,system-ui,sans-serif;font-weight:700;
+ letter-spacing:.045em;font-size:clamp(42px,7.4vw,82px);
+ color:#f0edff;
+ text-shadow:0 0 22px rgba(150,105,255,.22),0 0 54px rgba(99,46,160,.18);
+}
+.module{
+ border-radius:20px;
+ background:linear-gradient(145deg,rgba(19,15,34,.68),rgba(7,10,19,.62));
+ border:1px solid rgba(166,145,220,.15);
+ box-shadow:0 18px 60px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.module:before{
+ content:"";position:absolute;inset:0;opacity:.72;pointer-events:none;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 260'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M-20 210 C100 210 70 35 210 45 S330 235 440 125 S590 15 700 65 S790 220 930 180' stroke='%23a99bff' stroke-opacity='.32' stroke-width='3'/%3E%3Cpath d='M-20 70 C100 70 110 230 245 205 S355 30 475 70 S620 240 740 205 S830 55 930 80' stroke='%23d9d4ef' stroke-opacity='.22' stroke-width='2'/%3E%3Cpath d='M-10 145 C110 145 135 95 250 105 S390 190 510 150 S650 65 770 115 S850 155 920 135' stroke='%23c4ff38' stroke-opacity='.12' stroke-width='1.5'/%3E%3C/g%3E%3Cg fill='%23080b13' stroke='%23c9c2ed' stroke-opacity='.55' stroke-width='2'%3E%3Ccircle cx='210' cy='45' r='7'/%3E%3Ccircle cx='440' cy='125' r='7'/%3E%3Ccircle cx='700' cy='65' r='7'/%3E%3Ccircle cx='245' cy='205' r='6'/%3E%3Ccircle cx='475' cy='70' r='6'/%3E%3Ccircle cx='740' cy='205' r='6'/%3E%3C/g%3E%3C/svg%3E");
+ background-size:100% 100%;background-repeat:no-repeat;
+ mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 62%);
+}
+.module-head{position:relative;z-index:1;margin-bottom:18px}
+.module-title{font-size:10px;letter-spacing:.28em;color:#d9d0f7}
+/* Origins: small connector traces above each source, not behind the controls */
+.module.wide .osc-grid{position:relative;z-index:1}
+.osc{
+ border-radius:15px;position:relative;overflow:hidden;
+ background:linear-gradient(155deg,rgba(13,13,27,.76),rgba(7,11,20,.72));
+ border:1px solid rgba(172,157,221,.16);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+.osc:before{
+ content:"";position:absolute;left:16px;right:16px;top:0;height:22px;
+ border-top:1px solid rgba(181,165,231,.32);
+ border-radius:50% 50% 0 0 / 100% 100% 0 0;
+ opacity:.7;pointer-events:none;
+}
+.osc:after{display:none}
+.osc>*{position:relative;z-index:1}
+.osc-name{
+ color:#cbbdff;font-size:10px;letter-spacing:.24em;
+ text-shadow:0 0 12px rgba(155,120,255,.22);
+}
+.osc.active{
+ border-color:rgba(196,255,56,.48);
+ background:linear-gradient(155deg,rgba(30,34,28,.78),rgba(12,13,25,.76));
+ box-shadow:inset 0 0 28px rgba(196,255,56,.045),0 0 24px rgba(196,255,56,.07);
+}
+.osc.active .osc-name{color:var(--acid);text-shadow:0 0 12px rgba(196,255,56,.35)}
+.power{border-radius:9px;background:rgba(24,19,39,.64);border-color:rgba(175,158,225,.2)}
+.power.on{box-shadow:0 0 16px rgba(196,255,56,.1)}
+/* Shape and Space receive different cable personalities */
+.grid>.module:nth-child(2):before{
+ background-size:150% 100%;background-position:center;opacity:.55;
+}
+.grid>.module:nth-child(2) .module-title{color:#d2c4ff}
+.grid>.module:nth-child(3){
+ background:linear-gradient(145deg,rgba(34,19,52,.7),rgba(9,10,22,.66));
+ border-color:rgba(166,132,230,.22);
+}
+.grid>.module:nth-child(3):before{opacity:.95;filter:hue-rotate(12deg)}
+.grid>.module:nth-child(3) .module-title{color:#d8c5ff}
+.control,.module-head{position:relative;z-index:1}
+input[type=range]{accent-color:var(--acid)}
+select{background:rgba(8,8,19,.78);border-color:rgba(173,157,220,.2)}
+@media(max-width:760px){
+ .module:before{opacity:.55}
+ .osc:before{left:12px;right:12px}
+}
+@media(prefers-reduced-motion:reduce){.module:before{animation:none}}
+
+</style>
+</head>
+<body>
+<audio id="background-audio" playsinline></audio>
+<div class="mist"></div><div class="mist2"></div><div class="texture"></div><div class="grain"></div>
+<main>
+
+<section class="intro"><div><h1>DRONEBATH</h1></div></section>
+
+<section class="grid">
+<div class="module wide"><div class="module-head"><span class="module-title">ORIGINS</span></div><div class="osc-grid" id="oscillators">
+<div class="osc" data-index="0" data-level="35"><div class="osc-name">BED</div><button class="power" type="button">WAKE UP</button><div class="control"><div class="control-top"><label>TONE</label><span class="value freq-val">55 Hz</span></div><input class="freq" type="range" min="25" max="220" value="55" step=".1"></div><div class="control"><div class="control-top"><label>WAVE</label></div><select class="wave"><option value="sine" selected>SOFT</option><option value="triangle">ROUND</option><option value="sawtooth">BRIGHT</option><option value="square">HOLLOW</option></select></div><div class="control"><div class="control-top"><label>BREATH SPEED</label><span class="value speed-val">SLOW DRIFT</span></div><input class="speed" type="range" min="0" max="100" value="37"></div></div>
+<div class="osc" data-index="1" data-level="28"><div class="osc-name">VEIL</div><button class="power" type="button">WAKE UP</button><div class="control"><div class="control-top"><label>TONE</label><span class="value freq-val">56 Hz</span></div><input class="freq" type="range" min="25" max="220" value="56" step=".1"></div><div class="control"><div class="control-top"><label>WAVE</label></div><select class="wave"><option value="sine" selected>SOFT</option><option value="triangle">ROUND</option><option value="sawtooth">BRIGHT</option><option value="square">HOLLOW</option></select></div><div class="control"><div class="control-top"><label>BREATH SPEED</label><span class="value speed-val">SLOW DRIFT</span></div><input class="speed" type="range" min="0" max="100" value="42"></div></div>
+<div class="osc" data-index="2" data-level="22"><div class="osc-name">TIDE</div><button class="power" type="button">WAKE UP</button><div class="control"><div class="control-top"><label>TONE</label><span class="value freq-val">82 Hz</span></div><input class="freq" type="range" min="25" max="220" value="82.4" step=".1"></div><div class="control"><div class="control-top"><label>WAVE</label></div><select class="wave"><option value="sine" selected>SOFT</option><option value="triangle">ROUND</option><option value="sawtooth">BRIGHT</option><option value="square">HOLLOW</option></select></div><div class="control"><div class="control-top"><label>BREATH SPEED</label><span class="value speed-val">FLOATING</span></div><input class="speed" type="range" min="0" max="100" value="48"></div></div>
+<div class="osc" data-index="3" data-level="18"><div class="osc-name">TRACE</div><button class="power" type="button">WAKE UP</button><div class="control"><div class="control-top"><label>TONE</label><span class="value freq-val">110 Hz</span></div><input class="freq" type="range" min="25" max="220" value="110" step=".1"></div><div class="control"><div class="control-top"><label>WAVE</label></div><select class="wave"><option value="sine" selected>SOFT</option><option value="triangle">ROUND</option><option value="sawtooth">BRIGHT</option><option value="square">HOLLOW</option></select></div><div class="control"><div class="control-top"><label>BREATH SPEED</label><span class="value speed-val">FLOATING</span></div><input class="speed" type="range" min="0" max="100" value="52"></div></div>
+</div></div>
+<div class="module"><div class="module-head"><span class="module-title">SHAPE</span><span class="module-index">SOFTEN / DARKEN</span></div><div class="control"><div class="control-top"><label>OPEN / CLOSE</label><span class="value" id="cutoff-val">1.2 kHz</span></div><input id="cutoff" type="range" min="80" max="9000" value="1200"></div></div>
+<div class="module"><div class="module-head"><span class="module-title">SPACE</span></div><div class="control"><div class="control-top"><label>SIZE OF THE SPACE</label><span class="value" id="decay-val">45 seconds</span></div><input id="decay" type="range" min="5" max="90" value="45"></div><div class="control"><div class="control-top"><label>MOVEMENT</label><span class="value" id="movement-val">35%</span></div><input id="movement" type="range" min="0" max="100" value="35"></div><div class="control"><div class="control-top"><label>HOW MUCH SPACE</label><span class="value" id="wet-val">0%</span></div><input id="wet" type="range" min="0" max="100" value="0"></div></div>
+</section>
+
+</main>
+<script>
+(()=>{
+const $=id=>document.getElementById(id),num=id=>Number($(id).value),pct=id=>num(id)/100;
+const cards=[...document.querySelectorAll('.osc')];let ctx=null,nodes=null,running=false,raf=0;
+const say=(id,v)=>$(id).textContent=v;
+function speedHz(value){return .003*Math.pow(8/.003,value/100)}
+function speedName(hz){
+ if(hz<.008)return 'GEOLOGICAL';
+ if(hz<.02)return 'CONTINENTAL';
+ if(hz<.06)return 'GLACIAL';
+ if(hz<.15)return 'SNAIL PACE';
+ if(hz<.4)return 'SLOW DRIFT';
+ if(hz<.9)return 'FLOATING';
+ if(hz<1.8)return 'WANDERING';
+ if(hz<3.5)return 'RESTLESS';
+ if(hz<6)return 'BUZZING';
+ return 'HELICOPTER';
+}
+function updateLabels(){
+ cards.forEach(card=>{
+  const f=Number(card.querySelector('.freq').value);
+  card.querySelector('.freq-val').textContent=`${f.toFixed(1)} Hz`;
+  card.querySelector('.speed-val').textContent=speedName(speedHz(Number(card.querySelector('.speed').value)));
+ });
+ say('cutoff-val',num('cutoff')>=1000?`${(num('cutoff')/1000).toFixed(1)} kHz`:`${num('cutoff')} Hz`);
+ say('decay-val',num('decay')>=85?'90 seconds — IMMENSE':num('decay')>=60?`${num('decay')} seconds — HUGE`:`${num('decay')} seconds`);
+ say('movement-val',`${num('movement')}%`);say('wet-val',`${num('wet')}%`);
+}
+function createReverb(input, output){
+ // Four slightly different delay lines feed one another. Slow modulation
+ // keeps the tail moving instead of leaving a static wash.
+ const bus=ctx.createGain();
+ const inputGains=[ctx.createGain(),ctx.createGain(),ctx.createGain(),ctx.createGain()];
+ const delays=[ctx.createDelay(1.2),ctx.createDelay(1.2),ctx.createDelay(1.2),ctx.createDelay(1.2)];
+ const toneFilters=delays.map(()=>{const f=ctx.createBiquadFilter();f.type='lowpass';f.frequency.value=6500;return f});
+ const feedbackGains=delays.map(()=>ctx.createGain());
+ const modOscs=[],modGains=[];
+ const times=[.293,.337,.379,.421];
+ delays.forEach((delay,i)=>{
+  delay.delayTime.value=times[i];
+  input.connect(inputGains[i]);inputGains[i].gain.value=.5;
+  inputGains[i].connect(delay);
+  delay.connect(toneFilters[i]);
+  toneFilters[i].connect(bus);
+  const lfo=ctx.createOscillator(),depth=ctx.createGain();
+  lfo.type='sine';lfo.frequency.value=[.071,.083,.097,.113][i];
+  depth.gain.value=0;lfo.connect(depth);depth.connect(delay.delayTime);lfo.start();
+  modOscs.push(lfo);modGains.push(depth);
+ });
+ // Cross-coupled feedback creates a dense, overlapping tail.
+ const routePairs=[[0,1],[0,2],[1,2],[1,3],[2,3],[2,0],[3,0],[3,1]];
+ const routeNodes=[];
+ routePairs.forEach(([from,to],i)=>{
+  const g=ctx.createGain();g.gain.value=[.43,.35,.43,.35,.43,.35,.43,.35][i];
+  toneFilters[from].connect(g);g.connect(delays[to]);routeNodes.push(g);
+ });
+ bus.connect(output);
+ return {bus,inputGains,delays,toneFilters,feedbackGains,modOscs,modGains,routeNodes,times};
+}
+function setReverb(reverb){
+ const seconds=num('decay');
+ // Approximate a musical decay time while keeping the feedback network stable.
+ const loopTime=1.45;
+ const feedback=Math.min(.94,Math.pow(10,(-3*loopTime)/seconds));
+ const movement=num('movement')/100;
+ reverb.routeNodes.forEach((g,i)=>{
+  const base=[.43,.35,.43,.35,.43,.35,.43,.35][i];
+  g.gain.setTargetAtTime(base*(feedback/.78),ctx.currentTime,.25);
+ });
+ reverb.modGains.forEach((g,i)=>{
+  g.gain.setTargetAtTime(movement*[.0035,.0042,.0031,.0048][i],ctx.currentTime,.3);
+ });
+}
+function build(){
+ ctx=new(window.AudioContext||window.webkitAudioContext)();
+ const master=ctx.createGain(),compressor=ctx.createDynamicsCompressor(),makeup=ctx.createGain(),limiter=ctx.createDynamicsCompressor(),analyser=ctx.createAnalyser(),filter=ctx.createBiquadFilter(),reverbInput=ctx.createGain(),wet=ctx.createGain(),streamOut=ctx.createMediaStreamDestination();
+ master.gain.value=1;compressor.threshold.value=-18;compressor.knee.value=18;compressor.ratio.value=8;compressor.attack.value=.008;compressor.release.value=.28;makeup.gain.value=2.2;limiter.threshold.value=-3;limiter.knee.value=3;limiter.ratio.value=20;limiter.attack.value=.003;limiter.release.value=.12;
+ analyser.fftSize=256;filter.type='lowpass';filter.frequency.value=num('cutoff');filter.Q.value=.8;
+ filter.connect(master);
+ filter.connect(reverbInput);
+ const reverb=createReverb(reverbInput,wet);
+ wet.gain.value=pct('wet')*.9;
+ wet.connect(master);master.connect(compressor);compressor.connect(makeup);makeup.connect(limiter);limiter.connect(analyser);analyser.connect(streamOut);
+ const voices=cards.map(card=>{
+  const osc=ctx.createOscillator(),amp=ctx.createGain(),lfo=ctx.createOscillator(),depth=ctx.createGain();
+  osc.type=card.querySelector('.wave').value;osc.frequency.value=Number(card.querySelector('.freq').value);
+  lfo.type='sine';lfo.frequency.value=speedHz(Number(card.querySelector('.speed').value));
+  osc.connect(amp);amp.connect(filter);lfo.connect(depth);depth.connect(amp.gain);
+  amp.gain.value=0;depth.gain.value=0;osc.start();lfo.start();
+  return{osc,amp,lfo,depth,card,on:false};
+ });
+ nodes={master,filter,reverb,wet,analyser,voices,streamOut,compressor,makeup,limiter};setReverb(reverb);refreshAll();
+}
+function refreshVoice(v){
+ const card=v.card,t=ctx.currentTime;
+ const level=Number(card.dataset.level)/100*.72;
+ const depth=1;
+ const max=card.querySelector('.power').dataset.on==='true'?level:0;
+ const base=max*(1-depth/2),swing=max*depth/2;
+ v.osc.type=card.querySelector('.wave').value;
+ v.osc.frequency.setTargetAtTime(Number(card.querySelector('.freq').value),t,.12);
+ v.amp.gain.setTargetAtTime(base,t,.12);
+ v.depth.gain.setTargetAtTime(swing,t,.12);
+ v.lfo.frequency.setTargetAtTime(speedHz(Number(card.querySelector('.speed').value)),t,.12);
+}
+function refreshAll(){
+ if(!nodes)return;const t=ctx.currentTime;
+ nodes.filter.frequency.setTargetAtTime(num('cutoff'),t,.15);
+ 
+ nodes.wet.gain.setTargetAtTime(pct('wet')*.9,t,.15);setReverb(nodes.reverb);
+ nodes.voices.forEach(refreshVoice);
+}
+function setVoicePower(card,on){
+ card.querySelector('.power').dataset.on=String(on);
+ card.querySelector('.power').textContent=on?'ONLINE — SLEEP':'WAKE UP';
+ card.classList.toggle('active',on);
+ const voice=nodes?.voices[Number(card.dataset.index)];
+ if(voice){voice.on=on;refreshVoice(voice)}
+}
+async function wakeVoice(card){
+ const button=card.querySelector('.power');
+ const on=button.dataset.on!=='true';
+ try{
+  if(!ctx)build();
+  const player=$('background-audio');
+  if(!player.srcObject)player.srcObject=nodes.streamOut.stream;
+  player.volume=1;
+  const playback=player.play();
+  if(ctx.state!=='running')await ctx.resume();
+  await playback;
+  running=true;document.body.classList.add('running');
+  setVoicePower(card,on);
+ }catch(e){
+  console.error('Dronebath audio start failed:',e);
+ }
+}
+cards.forEach(card=>card.querySelector('.power').addEventListener('click',()=>wakeVoice(card)));
+document.querySelectorAll('input[type=range],select').forEach(el=>{el.addEventListener('input',()=>{updateLabels();if(nodes)refreshAll()});el.addEventListener('change',()=>{updateLabels();if(nodes)refreshAll()})});
+
+updateLabels();
+})();
+</script>
+</body></html>
