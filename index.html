@@ -241,51 +241,6 @@ body{
     z-index:2;
   }
 }
-  
-/* Atmospheric interaction */
-.mist::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  background:
-    radial-gradient(
-      ellipse 240px 190px at var(--pointer-x, 50%) var(--pointer-y, 50%),
-      rgba(120,160,255,.13),
-      rgba(120,130,210,.05) 45%,
-      transparent 75%
-    );
-  filter: blur(35px);
-  mix-blend-mode: screen;
-  transition: opacity .7s ease;
-}
-
-.mist.responding::after {
-  opacity: 1;
-}
-
-.mist.disturbing::after {
-  animation: atmosphere-pulse 1.8s ease-out forwards;
-}
-
-@keyframes atmosphere-pulse {
-  0% {
-    opacity: .8;
-    background-size: 100% 100%;
-  }
-  100% {
-    opacity: 0;
-    background-size: 190% 190%;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .mist.disturbing::after {
-    animation: none;
-  }
-}
-
 </style>
 </head>
 
@@ -303,7 +258,7 @@ body{
     alt="Yorkshire Modular Society"
     class="logo"
   >
-</a>
+ </a>
 
 <nav class="links">
   <a href="/vault.html">YMS Vault</a>
@@ -316,43 +271,6 @@ body{
 </div>
 
 </main>
+
 </body>
-  
-<script>
-(() => {
-  const mist = document.querySelector('.mist');
-  if (!mist || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  let timeout;
-
-  document.addEventListener('pointermove', e => {
-    if (e.pointerType === 'touch') return;
-
-    mist.style.setProperty('--pointer-x', e.clientX + 'px');
-    mist.style.setProperty('--pointer-y', e.clientY + 'px');
-    mist.classList.add('responding');
-  });
-
-  document.addEventListener('pointerleave', () => {
-    mist.classList.remove('responding');
-  });
-
-  document.addEventListener('pointerdown', e => {
-    if (e.button !== 0) return;
-
-    mist.style.setProperty('--pointer-x', e.clientX + 'px');
-    mist.style.setProperty('--pointer-y', e.clientY + 'px');
-
-    mist.classList.remove('disturbing');
-    void mist.offsetWidth;
-    mist.classList.add('disturbing');
-
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      mist.classList.remove('disturbing');
-    }, 1900);
-  });
-})();
-</script>
-
 </html>
