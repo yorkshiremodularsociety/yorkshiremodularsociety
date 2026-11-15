@@ -317,4 +317,42 @@ body{
 
 </main>
 </body>
+  
+<script>
+(() => {
+  const mist = document.querySelector('.mist');
+  if (!mist || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let timeout;
+
+  document.addEventListener('pointermove', e => {
+    if (e.pointerType === 'touch') return;
+
+    mist.style.setProperty('--pointer-x', e.clientX + 'px');
+    mist.style.setProperty('--pointer-y', e.clientY + 'px');
+    mist.classList.add('responding');
+  });
+
+  document.addEventListener('pointerleave', () => {
+    mist.classList.remove('responding');
+  });
+
+  document.addEventListener('pointerdown', e => {
+    if (e.button !== 0) return;
+
+    mist.style.setProperty('--pointer-x', e.clientX + 'px');
+    mist.style.setProperty('--pointer-y', e.clientY + 'px');
+
+    mist.classList.remove('disturbing');
+    void mist.offsetWidth;
+    mist.classList.add('disturbing');
+
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      mist.classList.remove('disturbing');
+    }, 1900);
+  });
+})();
+</script>
+
 </html>
