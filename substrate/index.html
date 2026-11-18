@@ -59,18 +59,18 @@ function signal(){if(!active)return;const key=choose(['signal','resonance']);sou
 function fluteBed(){
 if(!active)return;
 const lead=choose(['signal','resonance']);
-const available=Math.max(1,buffers[lead].duration-8);
+const available=Math.max(1,buffers[lead].duration-4);
 const start=rand(0,available);
-const duration=rand(48,82);
-source(lead,{rate:rand(.54,.72),start,duration,volume:rand(.075,.105),filter:rand(1900,3600),attack:rand(18,30),release:rand(28,42),wet:1,pan:rand(-.42,.42)});
-schedule(fluteBed,rand(145,225));
+const duration=rand(245,290);
+source(lead,{rate:rand(.54,.7),loop:true,start,duration,volume:rand(.075,.105),filter:rand(1900,3600),attack:rand(48,62),release:rand(38,50),wet:1,pan:rand(-.42,.42)});
+schedule(fluteBed,rand(195,225));
 }
 function fluteEcho(){
 if(!active)return;
 const key=choose(['signal','resonance']);
-const available=Math.max(1,buffers[key].duration-8);
-source(key,{rate:rand(.5,.7),start:rand(0,available),duration:rand(16,26),volume:rand(.009,.019),filter:rand(1600,3200),attack:rand(18,28),release:rand(18,26),wet:1,pan:rand(-.75,.75)});
-schedule(fluteEcho,rand(105,165));
+const available=Math.max(1,buffers[key].duration-4);
+source(key,{rate:rand(.5,.7),start:rand(0,available),duration:rand(20,30),volume:rand(.012,.024),filter:rand(1600,3200),attack:rand(26,38),release:rand(22,30),wet:1,pan:rand(-.75,.75)});
+schedule(fluteEcho,rand(78,112));
 }
 function fieldBeds(){
 if(!active)return;
