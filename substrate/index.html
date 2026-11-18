@@ -96,7 +96,7 @@ function silence(){if(!active)return;active=false;$('orb').classList.remove('awa
 let starting=false;
 async function awaken(){if(starting)return;starting=true;try{if(active){silence();return}if(ctx&&ctx.state!=='closed'){clearTimeout(fadeCleanup);await ctx.resume();;if(ctx.state!=='running')throw new Error('Audio is paused by the browser. Tap Enter again.');stopVoices();active=true;$('orb').classList.add('awake');const now=ctx.currentTime;master.gain.cancelScheduledValues(now);master.gain.setValueAtTime(.0001,now);master.gain.linearRampToValueAtTime(.88,now+3);$('start').textContent='Silence';$('start').disabled=false;$('status').innerHTML='Active<br>Autonomous process';$('disturb').disabled=$('reseed').disabled=$('silence').disabled=false;$('hint').textContent='The environment is now operating';fieldBeds();fluteBed();fluteEcho();fieldFragments();circulation();signal();schedule(fieldFragments,rand(28,48));schedule(circulation,rand(38,58));schedule(signal,rand(55,85));evolve()}else await start()}catch(e){console.error(e);active=false;$('status').innerHTML='Unable to resume<br>'+e.message;$('start').disabled=false;$('start').textContent='Try again'}finally{starting=false}}
 $('start').addEventListener('click',awaken);$('disturb').addEventListener('click',disturb);$('reseed').addEventListener('click',reseed);$('silence').addEventListener('click',silence);
-$('orb').addEventListener('pointerdown',awaken);
+$('orb').addEventListener('click',awaken);
 $('orb').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();awaken()}});
 })();
 </script></body></html>
