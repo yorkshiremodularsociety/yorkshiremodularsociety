@@ -71,16 +71,16 @@ schedule(fluteEcho,rand(68,98));
 }
 function fieldBeds(){
 if(!active)return;
-const duration=300;
-source('beck',{rate:rand(.985,1.015),loop:true,start:rand(0,Math.max(0,buffers.beck.duration-30)),duration,volume:rand(.125,.155),filter:rand(4200,7600),attack:rand(24,32),release:85,wet:.62,pan:rand(-.12,.12)});
-source('rain',{rate:rand(.96,1.04),loop:true,start:rand(0,Math.max(0,buffers.rain.duration-20)),duration:duration+10,volume:rand(.06,.08),filter:rand(2600,5200),attack:rand(30,38),release:90,wet:.86,pan:rand(-.18,.18)});
-schedule(fieldBeds,230);
+const duration=900;
+source('beck',{rate:rand(.985,1.015),loop:true,start:rand(0,Math.max(0,buffers.beck.duration-30)),duration,volume:rand(.13,.16),filter:rand(4200,7600),attack:rand(45,60),release:240,wet:.62,pan:rand(-.12,.12)});
+source('rain',{rate:rand(.96,1.04),loop:true,start:rand(0,Math.max(0,buffers.rain.duration-20)),duration:duration+30,volume:rand(.065,.085),filter:rand(2600,5200),attack:rand(55,70),release:260,wet:.86,pan:rand(-.18,.18)});
+schedule(fieldBeds,720);
 }
 function fieldFragments(){
 if(!active)return;
-const key=choose(['beck','beck','rain']);
-source(key,{rate:rand(.68,1.28),start:rand(0,Math.max(0,buffers[key].duration-35)),duration:rand(18,30),volume:rand(.025,.055),filter:rand(900,4200),attack:rand(10,16),release:rand(14,22),wet:rand(.72,.95),pan:rand(-.6,.6)});
-schedule(fieldFragments,rand(55,85));
+const key=choose(['beck','rain']);
+source(key,{rate:rand(.68,1.28),start:rand(0,Math.max(0,buffers[key].duration-35)),duration:rand(18,30),volume:rand(.012,.028),filter:rand(900,4200),attack:rand(14,22),release:rand(20,28),wet:rand(.72,.95),pan:rand(-.6,.6)});
+schedule(fieldFragments,rand(95,145));
 }
 function schedule(fn,seconds){const t=setTimeout(fn,seconds*1000);timers.push(t)}
 function evolve(){if(!active)return;state.phase+=1;state.energy=Math.max(.12,Math.min(.85,state.energy+rand(-.025,.025)));state.pressure=Math.max(.05,Math.min(.8,state.pressure+rand(-.025,.025)));state.activity=Math.max(.08,Math.min(.75,state.activity+rand(-.035,.035)));$('orb').style.filter=`blur(${rand(.1,1.5)}px) hue-rotate(${rand(-18,18)}deg)`;$('orb').style.transform=`scale(${rand(.96,1.045)}) rotate(${rand(-3,3)}deg)`;$('readout').innerHTML=`SYSTEM / ACTIVE<br>ACTIVITY / ${state.activity<.28?'QUIET':state.activity<.52?'CIRCULATING':'AGITATED'}<br>STATE / ${state.pressure>.55?'UNDER PRESSURE':state.energy>.6?'EXPANDING':'IN EQUILIBRIUM'}`;$('status').innerHTML='Active<br>Autonomous process';schedule(evolve,rand(45,80))}
