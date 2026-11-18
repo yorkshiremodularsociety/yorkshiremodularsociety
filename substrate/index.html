@@ -14,7 +14,7 @@ main{position:fixed;inset:0;width:100%;height:100vh;height:100svh;min-height:0;o
 .orb{isolation:isolate;overflow:visible;transition:box-shadow 1.4s ease}
 .chromatic{position:absolute;inset:-5%;border-radius:50%;opacity:0;mix-blend-mode:screen;filter:blur(19px);background:radial-gradient(ellipse at 31% 34%,rgba(183,142,113,.34),transparent 29%),radial-gradient(ellipse at 69% 38%,rgba(115,160,145,.32),transparent 31%),radial-gradient(ellipse at 57% 72%,rgba(133,108,164,.38),transparent 35%),radial-gradient(ellipse at 22% 73%,rgba(172,174,125,.2),transparent 27%);transition:opacity 3.5s ease;animation:colour-drift 73s ease-in-out infinite alternate}
 .orb .chromatic{transition:opacity 3.5s ease}
-.orb.awake{background:radial-gradient(ellipse at 35% 37%,rgba(193,139,114,.22),transparent 19%),radial-gradient(ellipse at 62% 58%,rgba(129,156,152,.22),transparent 24%),radial-gradient(ellipse at 48% 48%,rgba(114,85,108,.55),rgba(48,35,53,.12) 48%,transparent 69%);animation:breathe 17s ease-in-out infinite alternate;box-shadow:0 0 70px rgba(154,180,155,.16),0 0 140px rgba(128,102,145,.10)}
+.orb.awake{background:transparent;animation:breathe 17s ease-in-out infinite alternate;box-shadow:none}
 .orb.awake .chromatic{opacity:.9}
 .orb.awake .membrane{border-color:rgba(190,203,176,.23);box-shadow:inset 0 0 70px rgba(190,203,176,.09),0 0 55px rgba(145,171,158,.09)}
 .orb.awake .filaments{opacity:.88;filter:drop-shadow(0 0 7px rgba(166,190,175,.24))}
@@ -23,7 +23,7 @@ main{position:fixed;inset:0;width:100%;height:100vh;height:100svh;min-height:0;o
 .resonance.r2{width:49%;transform:translate(-50%,-50%) rotate(32deg) scaleX(1.12);background:radial-gradient(ellipse at 32% 36%,rgba(183,160,190,.14),transparent 42%),radial-gradient(ellipse at 70% 65%,rgba(181,194,162,.10),transparent 52%);animation-duration:47s;animation-direction:alternate-reverse}
 .resonance.r3{width:36%;transform:translate(-50%,-50%) rotate(-8deg) scaleY(1.12);background:radial-gradient(ellipse at 36% 30%,rgba(226,213,190,.18),transparent 40%),radial-gradient(ellipse at 70% 72%,rgba(131,174,160,.13),transparent 55%);animation-duration:37s}
 .resonance.core{width:21%;opacity:.52;filter:blur(12px);background:radial-gradient(circle at 38% 32%,rgba(230,220,199,.20),rgba(155,180,166,.10) 48%,rgba(119,91,130,.05) 76%,transparent 92%);box-shadow:none;animation:core-breathe 19s ease-in-out infinite alternate}
-.orb.awake .resonance{opacity:.78;filter:blur(.15px);animation:orb-resonate 18s ease-out infinite}
+.orb.awake .resonance{opacity:.78;filter:blur(22px);animation:orb-resonate 18s ease-out infinite}
 .orb.awake .resonance.r2{animation-delay:6s}
 .orb.awake .resonance.r3{animation-delay:12s}
 .orb.awake .resonance.core{opacity:.88;animation:core-breathe 11s ease-in-out infinite alternate}
