@@ -14,6 +14,7 @@ body{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-
 .mist,.mist2,.grain{position:fixed;pointer-events:none;z-index:0}
 .mist{inset:-40%;background:radial-gradient(700px 500px at 20% 30%,rgba(151,91,151,.13),transparent 60%),radial-gradient(800px 600px at 70% 40%,rgba(74,126,125,.10),transparent 62%),radial-gradient(900px 650px at 45% 75%,rgba(116,103,153,.08),transparent 60%);filter:blur(22px);opacity:.85;animation:drift 34s ease-in-out infinite alternate,mist-colour 130s linear infinite}
 .mist2{inset:-45%;background:radial-gradient(900px 700px at 65% 25%,rgba(119,91,147,.09),transparent 60%),radial-gradient(850px 650px at 30% 55%,rgba(79,128,111,.08),transparent 62%);filter:blur(30px);opacity:.65;animation:drift2 43s ease-in-out infinite alternate,mist-colour-2 170s linear infinite}
+.texture{position:fixed;inset:-10%;pointer-events:none;z-index:1;opacity:.45;mix-blend-mode:soft-light;background-image:radial-gradient(ellipse at 22% 35%,rgba(115,150,55,.20),transparent 38%),radial-gradient(ellipse at 78% 68%,rgba(65,115,65,.18),transparent 42%),radial-gradient(ellipse at 50% 15%,rgba(100,80,45,.12),transparent 40%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.025' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");background-size:900px 700px,1100px 800px,1000px 700px,500px 500px;background-repeat:no-repeat,no-repeat,no-repeat,repeat}
 .grain{inset:0;opacity:.04;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E")}
 @keyframes drift{0%{transform:translate3d(-2%,-1%,0) scale(1.02)}100%{transform:translate3d(2%,1%,0) scale(1.08)}}
 @keyframes drift2{0%{transform:translate3d(2%,1%,0) scale(1.04)}100%{transform:translate3d(-2%,-1%,0) scale(1.1)}}
@@ -21,7 +22,7 @@ body{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-
 @keyframes mist-colour-2{0%{filter:blur(30px) hue-rotate(0deg)}25%{filter:blur(30px) hue-rotate(90deg)}50%{filter:blur(30px) hue-rotate(180deg)}75%{filter:blur(30px) hue-rotate(270deg)}100%{filter:blur(30px) hue-rotate(360deg)}}
 .back{position:fixed;top:30px;left:28px;z-index:3;font-size:17px;line-height:1;color:var(--muted);text-decoration:none;opacity:.62;transition:opacity .3s}
 .back:hover{opacity:1}
-main{width:100%;max-width:var(--max);position:relative;z-index:1;animation:arrive 1400ms ease-out both}
+main{width:100%;max-width:var(--max);position:relative;z-index:2;animation:arrive 1400ms ease-out both}
 @keyframes arrive{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .entries{display:flex;flex-direction:column;align-items:flex-start;gap:30px}
 .entries a{display:inline-block;color:var(--fg);text-decoration:none;font-size:16px;letter-spacing:.12em;opacity:.86;transition:opacity .35s,color .35s}
@@ -31,7 +32,7 @@ main{width:100%;max-width:var(--max);position:relative;z-index:1;animation:arriv
 </style>
 </head>
 <body>
-<div class="mist"></div><div class="mist2"></div><div class="grain"></div>
+<div class="mist"></div><div class="mist2"></div><div class="texture"></div><div class="grain"></div>
 <a class="back" href="/" aria-label="Back to Yorkshire Modular Society">←</a>
 <main>
 <nav class="entries" aria-label="YMS toys">
